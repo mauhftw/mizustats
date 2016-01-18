@@ -47,8 +47,6 @@ Route::get('export',['as' => 'export.index', 'uses' => 'ExportData@index']);
 Route::get('export/download',['as' => 'export.download', 'uses' => 'ExportData@download']);
 
 
-
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
