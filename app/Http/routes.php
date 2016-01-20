@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('master');
+    return view('template.login');
 });
 
 /*Admin dashboard*/
@@ -43,8 +43,8 @@ Route::put('water-prices/{id}',['as' => 'water-prices.update','uses' => 'WaterPr
 Route::delete('water-prices/{id}',['as' => 'water-prices.delete', 'uses' => 'WaterPricesController@delete']);
 
 /*export data*/
-Route::get('export',['as' => 'export.index', 'uses' => 'ExportData@index']);
-Route::get('export/download',['as' => 'export.download', 'uses' => 'ExportData@download']);
+Route::get('export',['as' => 'export.index', 'uses' => 'ExportDataController@index']);
+Route::get('export/download',['as' => 'export.download', 'uses' => 'ExportDataController@download']);
 
 
 /*

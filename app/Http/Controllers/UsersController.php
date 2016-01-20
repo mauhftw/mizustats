@@ -8,15 +8,15 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 class UsersController extends Controller {
-  
-    public static function index() {
 
+    public static function index() {
+        return view('users.index');
     }
     public static function getDatatable() {
 
     }
     public static function create() {
-
+      return view('users.create');
     }
     public static function store() {
 

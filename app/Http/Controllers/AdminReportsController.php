@@ -10,7 +10,7 @@ use App\Http\Controllers\Controller;
 class AdminReportsController extends Controller {
 
   public static function index() {
-
+      return view('dashboard.index');
   }
-  
+
 }
