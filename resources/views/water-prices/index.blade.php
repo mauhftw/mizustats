@@ -1,7 +1,7 @@
 @extends('template.master')
-@section('page-title','Usuarios')
-@section('page-description','Listado de usuarios')
-@section('box-name','Listado de usuarios')
+@section('page-title','Precios')
+@section('page-description','Listado de precios')
+@section('box-name','Listado de precios')
 @section('content')
 <div class="col-md-12">
     <section class="panel">
@@ -22,10 +22,10 @@
                         <thead>
                             <tr>
                                 <th class="col-md-1 center">#</th>
-                                <th class="col-md-2 center">Nombre</th>
-                                <th class="col-md-2 center">Apellido</th>
-                                <th class="col-md-2 center">Provincia</th>
-                                <th class="col-md-2 center">Departamento</th>
+                                <th class="col-md-2 center">Descripcion</th>
+                                <th class="col-md-2 center">Valor</th>
+                                <th class="col-md-2 center">Fecha</th>
+                                <th class="col-md-2 center">Activo</th>
                                 <th class="col-md-3 center">Acciones</th>
                             </tr>
                         </thead>
@@ -36,7 +36,7 @@
             </div>
         </div>
     </section>
-
+</div>
 @stop
 @section('scripts')
 <script type="text/javascript">
@@ -44,14 +44,14 @@
     $('#datatable').dataTable({
         processing: true,
         serverSide: true,
-        //language: datatable_spanish,
+        language: datatable_spanish,
         ajax: $('#datatable').data('url'),
         columns: [
         {data: 'id', name: 'id', className: "center"},
-        {data: 'name', name: 'name'},
-        {data: 'lastname', name: 'lastname'},
-        {data: 'state_id', name: 'state'},
-        {data: 'city_id', name: 'city', className: "center"},
+        {data: 'description', name: 'description'},
+        {data: 'updated-at', name: 'updated-at'},
+        {data: 'value', name: 'value'},
+        {data: 'active', name: 'active', className: "center"},
         {data: 'actions',name: 'actions', className: "center", orderable: false, searchable: false}
         ]
     });

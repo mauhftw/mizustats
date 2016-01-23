@@ -11,24 +11,26 @@
                   <label for="role" class="col-sm-2 control-label">Seleccione el tipo de usuario</label>
 
                   <div class="col-sm-3">
-                  <select class="form-control">
+                <!--  <select class="form-control">
                     <option>Administrador</option>
                     <option>Cliente</option>
-                  </select>
+                  </select> -->
+                  {!! Form::select('rol_id', $roles, 'null', ['class' => 'form-control', 'required']) !!}
+
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label for="name" class="col-sm-2 control-label">Nombre</label>
                   <div class="col-sm-3">
-                    <input required type="name" class="form-control" placeholder="Nombre" min ="2" pattern="[a-zA-Z]+">
+                    {!! Form::text('name', '', ['class'=>'form-control', 'required', 'placeholder' => 'Nombre', 'minlength'=>'2', 'maxlength'=>'32', 'autofocus', 'pattern' => '[a-zA-Z]+']) !!}
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="lastname" class="col-sm-2 control-label">Apellido</label>
 
                   <div class="col-sm-3">
-                    <input required type="lastname" class="form-control" placeholder="Apellido" min="2" pattern="[a-zA-Z]+">
+                    {!! Form::text('lastname', '', ['class'=>'form-control','placeholder' => 'Apellido', 'required', 'minlength'=>'2', 'maxlength'=>'32', 'autofocus', 'pattern' => '[a-zA-Z]+']) !!}
                   </div>
                 </div>
 
@@ -36,7 +38,7 @@
                   <label for="email" class="col-sm-2 control-label">E-mail</label>
 
                 <div class="col-sm-3">
-                  <input required type="email" class="form-control" placeholder="example@example.com">
+                  {!! Form::text('email','', ['class'=>'form-control', 'placeholder' => 'example@domain.com', 'required', 'minlength'=>'2', 'maxlength'=>'128']) !!}
                 </div>
               </div>
 
@@ -44,23 +46,15 @@
                 <label for="password" class="col-sm-2 control-label">Password</label>
 
               <div class="col-sm-3">
-                <input required type="password" class="form-control" placeholder="Password">
+                {!! Form::password('password', ['class'=>'form-control', 'minlength'=>'6', 'maxlength'=>'128', 'required']) !!}
               </div>
             </div>
-
-            <div class="form-group">
-              <label for="confirm_password" class="col-sm-2 control-label">Confirmar password</label>
-
-            <div class="col-sm-3">
-              <input required type="confirm_password" class="form-control" placeholder="Confirmar password">
-            </div>
-          </div>
 
               <div class="form-group">
                 <label for="dni" class="col-sm-2 control-label">DNI</label>
 
                 <div class="col-sm-3">
-                  <input required type="dni" class="form-control" placeholder="DNI" [0-9]+>
+                  {!! Form::text('dni', '', ['class'=>'form-control', 'required','placeholder' => '35666111', 'minlength'=>'2', 'maxlength'=>'32', 'autofocus', 'pattern' => '[0-9]+']) !!}
                 </div>
               </div>
 
@@ -68,23 +62,19 @@
                 <label for="state" class="col-sm-2 control-label">Provincia</label>
 
                 <div class="col-sm-3">
-                <select class="form-control">
-                  <option>Mendoza</option>
-                  <option>Buenos Aires</option>
-                </select>
+                {!! Form::select('state_id', $states, 'null', ['class' => 'form-control', 'required']) !!}
                 </div>
               </div>
 
               <div class="form-group">
                 <label for="city" class="col-sm-2 control-label">Ciudad</label>
 
-                <div class="col-sm-3">
-                <select class="form-control">
-                  <option>GodoyCruz</option>
-                  <option>Maipu</option>
-                  <option>Ciudad</option>
-                  <option>Guaymallen</option>
-                </select>
+                <div class="col-sm-3">  <!-- AJAX -->
+                <!--<select class="form-control">
+                  <option value ="228">Godoy Cruz</option>
+                </select>-->
+                {!! Form::select('city_id',['228' => 'Godoy Cruz'], 'Godoy Cruz', ['class' => 'form-control', 'required']) !!}
+
                 </div>
               </div>
 
@@ -95,7 +85,7 @@
                 {!! Form::submit('Registrar',['class'=> 'btn btn-primary pull-right']) !!}
               </div>
               <!-- /.box-footer -->
-            </form>
+            {!! Form::close() !!}
           </div>
 @stop
 @section('scripts')

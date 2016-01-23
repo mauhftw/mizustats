@@ -11,8 +11,14 @@
 |
 */
 
+Route::group(['middleware' => ['web']], function () {
+
 Route::get('/', function () {
     return view('template.login');
+});
+
+Route::get('test', function () {
+    return view('welcome');
 });
 
 /*Admin dashboard*/
@@ -24,7 +30,7 @@ Route::get('home',['as' => 'home.index', 'uses' => 'ClientReportsController@inde
 
 /*Users*/
 Route::get('users', ['as' => 'users.index', 'uses' => 'UsersController@index']);
-Route::get('users/data', ['as' => 'users.getData', 'uses' => 'UsersController@getDatatable']);
+Route::get('users/data', ['as' => 'users.getDatatable', 'uses' => 'UsersController@getDatatable']);
 Route::get('users/create', ['as' => 'users.create', 'uses' => 'UsersController@create']);
 Route::post('users', ['as' => 'users.create', 'uses' => 'UsersController@store']);
 Route::get('users/{id}', ['as' => 'users.show', 'uses' => 'UsersController@show']);
@@ -34,7 +40,7 @@ Route::delete('users/{id}', ['as' => 'users.destroy', 'uses' => 'UsersController
 
 /*Water_prices*/
 Route::get('water-prices', ['as' => 'water-prices.index', 'uses' => 'WaterPricesController@index']);
-Route::get('water-prices/data', ['as' => 'water-prices.getData', 'uses' => 'WaterPricesController@getDatatable']);
+Route::get('water-prices/data', ['as' => 'water-prices.getDatatable', 'uses' => 'WaterPricesController@getDatatable']);
 Route::get('water-prices/create',['as' => 'water-prices.create', 'uses' => 'WaterPricesController@create']);
 Route::post('water-prices',['as' => 'water-prices.store', 'uses' => 'WaterPricesController@store']);
 Route::get('water-prices/{id}',['as' => 'water-prices.show', 'uses' => 'WaterPricesController@show']);
@@ -58,6 +64,6 @@ Route::get('export/download',['as' => 'export.download', 'uses' => 'ExportDataCo
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
-    //
+
+
 });

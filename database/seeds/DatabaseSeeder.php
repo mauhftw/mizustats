@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
       $this->call(StatesSeeder::class);
       $this->call(CitiesSeeder::class);
       $this->call(RolesSeeder::class);
+      $this->call(UsersSeeder::class);
 
       Model::reguard();
     }

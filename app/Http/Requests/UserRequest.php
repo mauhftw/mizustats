@@ -23,11 +23,13 @@ class UserRequest extends Request
         -Si registro un usuario no deberia pedir password (se generara auto), solo para el admin
         -Cuidado con el update (por el email que ya existe)
       */
+
+
         return [
           'name' => 'required|between:2,32|alpha',
           'lastname' => 'required|between:2,32|alpha',
           'email' => 'required|email|max:128|unique:users,email',
-          'password' => 'required|min:6|confirmed',
+          'password' => 'required|min:6',
           'dni' => 'required|numeric|unique:users,dni',
           'state_id' => 'required|exists:states,id',
           'city_id' =>'required|exists:cities,id',

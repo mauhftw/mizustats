@@ -45,7 +45,6 @@
               <div class="box box-primary">
                 <div class="box-header with-border">
                   <h3 class="box-title">@yield('box-name')</h3>
-
                   <div class="box-tools pull-right">
                     <!--<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse">
                       <i class="fa fa-minus"></i></button>
@@ -54,6 +53,9 @@
                   </div>
                 </div>
                 <div class="box-body" style="display: block;">
+                  <div class="col-md-12">
+                      @include('shared.notifications')
+                  </div>
                   @yield('content')
                 </div>
                 <!-- /.box-body -->
@@ -90,7 +92,6 @@
 </div><!-- ./wrapper -->
 
 <!-- REQUIRED JS SCRIPTS -->
-@yield('scripts')
 <script src="{{{ asset ("/bower_components/AdminLTE/plugins/jQuery/jQuery-2.1.4.min.js") }}}"></script>
 <script src="{{{ asset ("/bower_components/AdminLTE/bootstrap/js/bootstrap.min.js") }}}" type="text/javascript"></script>
 <script src="{{{ asset ("/bower_components/AdminLTE/dist/js/app.min.js") }}}" type="text/javascript"></script>
@@ -98,6 +99,7 @@
 <script src="{{{ asset ("/bower_components/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js") }}}" type="text/javascript"></script>
 <script src="{{{ asset ("/bower_components/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js") }}}" type="text/javascript"></script>
 <script src="{{{ asset ("/bower_components/AdminLTE/plugins/fastclick/fastclick.js") }}}" type= "text/javascript"></script>
+@yield('scripts')
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
       Both of these plugins are recommended to enhance the
       user experience -->

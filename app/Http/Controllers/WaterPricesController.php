@@ -10,13 +10,13 @@ use App\Http\Controllers\Controller;
 class WaterPricesController extends Controller {
 
   public static function index() {
-
+      return view ('water-prices.index');
   }
   public static function getDatatable() {
 
   }
   public static function create() {
-
+      return view ('water-prices.create');
   }
   public static function store() {
 
