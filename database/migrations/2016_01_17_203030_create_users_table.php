@@ -22,13 +22,13 @@ class CreateUsersTable extends Migration
           $table->integer('dni')->unsigned();
           $table->integer('state_id')->unsigned();
           $table->integer('city_id')->unsigned();
-          $table->integer('rol_id')->unsigned();
+          $table->integer('role_id')->unsigned();
           $table->boolean('active');
           $table->rememberToken();
           $table->timestamps();
           $table->foreign('state_id')->references('id')->on('states');
           $table->foreign('city_id')->references('id')->on('cities');
-          $table->foreign('rol_id')->references('id')->on('roles');
+          $table->foreign('role_id')->references('id')->on('roles');
         });
     }
 

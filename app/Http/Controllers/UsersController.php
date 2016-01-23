@@ -58,17 +58,19 @@ class UsersController extends Controller {
 
     public static function store(UserRequest $request) {
 
-          $rol = Role::select('name','id')->where('id','=',$request->input('rol_id'))->first();
+          $role = Role::select('name','id')->where('id','=',$request->input('role_id'))->first();
           $user = new User;
 
           if ($rol->name == 'Admin') {              //Admin
               $user->password = Hash::make($request->input('password'));
               $user->active = 1;
-              $user->rol_id = $rol->id;
-          } else {                                        //Client
+              $user->role_id = $role->id;
+          } else {                                   //Client
               $client = Role::select('id')->where('name','=','User')->first();
               $token = str_random(32);      //make hash
-              $user->rol_id = $client->id;
+              $password = str_random(16);
+              $user->role_id = $client->id;
+              $user->password = Hash::make($password);
               $user->token = $token;
               $user->active = 0;
               /*hay que guardar los datos de login en la bases de datos mqtt*/
@@ -85,24 +87,67 @@ class UsersController extends Controller {
 
           return redirect()->route('users.index')->with('success', trans('El usuario se ha creado correctamente'));
     }
+
     public static function show($id) {
 
     }
     public static function edit($id) {
 
-      $user = User::find($id)->first();
-      $data = [
-        "user" => $user
-        ];
-
-      if(!$data) {
+      $user = User::find($id);
+      if(!$user) {
         return redirect()->back()->withErrors('No se encontro el usuario solicitado');
       }
 
+      $states = State::lists('name','id');
+      $cities = City::lists('name','id');
+      $roles = Role::lists('name','id');
+      $data = [
+        "user" => $user,
+        "states" => $states,
+        "cities" => $cities,
+        "roles" => $roles,
+        ];
+
       return view('users.edit')->with($data);
+
     }
 
-    public static function update ($id) {
+    public static function update (UserRequest $request, $id) {
+
+      $user = User::find($id);
+      if(!$user) {
+        return redirect()->back()->withErrors('No se encontro el usuario solicitado');
+      }
+
+      $role = Role::select('name','id')->where('id','=',$request->input('role_id'))->first();
+      if ($role->name == 'Admin') {  //Admin
+          $user->role_id = $role->id;
+      } else {                       //Client
+          $client = Role::select('id')->where('name','=','User')->first();
+          //$token = str_random(32);
+          $user->role_id = $client->id;
+          //$user->active = 0;
+          /*hay que guardar los datos de login en la bases de datos mqtt*/
+          /*Implementar colas para el tema de mails*/
+      }
+
+      if (!$request->has('active')){      //check checkbox :D
+          $user->active = 0;
+      } else {
+          $user->active = $request->input('active');
+      }
+
+      $user->password = Hash::make($request->input('password'));
+      $user->name = $request->input('name');
+      $user->lastname =$request->input('lastname');
+      $user->email = $request->input('email');
+      $user->dni = $request->input('dni');
+      $user->state_id = $request->input('state_id');
+      $user->city_id = $request->input('city_id');
+      $user->save();
+
+      return redirect()->route('users.index')->with('success', trans('El usuario se ha modificado correctamente'));
+
 
     }
     public static function delete($id) {

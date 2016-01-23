@@ -54,7 +54,7 @@
                 </div>
                 <div class="box-body" style="display: block;">
                   <div class="col-md-12">
-                      @include('shared.notifications')
+                      @include('shared.notifications')   <!-- NOTIFICACIONES -->
                   </div>
                   @yield('content')
                 </div>

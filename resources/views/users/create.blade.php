@@ -15,7 +15,7 @@
                     <option>Administrador</option>
                     <option>Cliente</option>
                   </select> -->
-                  {!! Form::select('rol_id', $roles, 'null', ['class' => 'form-control', 'required']) !!}
+                  {!! Form::select('role_id', $roles, 'null', ['class' => 'form-control', 'required']) !!}
 
                   </div>
                 </div>

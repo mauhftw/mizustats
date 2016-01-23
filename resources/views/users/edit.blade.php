@@ -11,10 +11,11 @@
                   <label for="role" class="col-sm-2 control-label">Seleccione el tipo de usuario</label>
 
                   <div class="col-sm-3">
-                  <select class="form-control">
+                  <!--<select class="form-control">
                     <option>Administrador</option>
                     <option>Cliente</option>
-                  </select>
+                  </select>-->
+                  {!! Form::select('role_id', $roles, old('role_id'), ['class' => 'form-control', 'required']) !!}
                   </div>
                 </div>
 
@@ -60,10 +61,7 @@
                 <label for="state" class="col-sm-2 control-label">Provincia</label>
 
                 <div class="col-sm-3">
-                <select class="form-control">
-                  <option>Mendoza</option>
-                  <option>Buenos Aires</option>
-                </select>
+                  {!! Form::select('state_id', $states, old('state_id'), ['class' => 'form-control', 'required']) !!}
                 </div>
               </div>
 
@@ -71,14 +69,16 @@
                 <label for="city" class="col-sm-2 control-label">Ciudad</label>
 
                 <div class="col-sm-3">
-                <select class="form-control">
-                  <option>GodoyCruz</option>
-                  <option>Maipu</option>
-                  <option>Ciudad</option>
-                  <option>Guaymallen</option>
-                </select>
+                  {!! Form::select('city_id',['228' => 'Godoy Cruz'], 'Godoy Cruz', ['class' => 'form-control', 'required']) !!}
                 </div>
               </div>
+
+              <div class="form-group">
+                <label for="active" class="col-sm-2 control-label">Activo</label>
+              <div class="col-sm-3">
+                {!! Form::checkbox('active', '1', old('active')) !!}
+              </div>
+            </div>
 
               </div>
               <!-- /.box-body -->
