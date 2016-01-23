@@ -36,7 +36,7 @@ Route::post('users', ['as' => 'users.create', 'uses' => 'UsersController@store']
 Route::get('users/{id}', ['as' => 'users.show', 'uses' => 'UsersController@show']);
 Route::get('users/{id}/edit', ['as' => 'users.edit', 'uses' => 'UsersController@edit']);
 Route::put('users/{id}', ['as' => 'users.update', 'uses' => 'UsersController@update']);
-Route::delete('users/{id}', ['as' => 'users.destroy', 'uses' => 'UsersController@destroy']);
+Route::delete('users/{id}', ['as' => 'users.delete', 'uses' => 'UsersController@delete']);
 
 /*Water_prices*/
 Route::get('water-prices', ['as' => 'water-prices.index', 'uses' => 'WaterPricesController@index']);

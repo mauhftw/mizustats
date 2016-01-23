@@ -40,8 +40,10 @@
         </section>
 
         <!-- Main content -->
+
         <section class="content">
               <!-- Default box -->
+
               <div class="box box-primary">
                 <div class="box-header with-border">
                   <h3 class="box-title">@yield('box-name')</h3>
@@ -52,12 +54,13 @@
                       <i class="fa fa-times"></i></button>-->
                   </div>
                 </div>
+                <div class="col-md-12">
+                    @include('shared.notifications')   <!-- NOTIFICACIONES -->
+                </div>
                 <div class="box-body" style="display: block;">
-                  <div class="col-md-12">
-                      @include('shared.notifications')   <!-- NOTIFICACIONES -->
-                  </div>
                   @yield('content')
                 </div>
+                <!--@include('shared.deletemodal')-->
                 <!-- /.box-body -->
               <!--  <div class="box-footer" style="display: block;">
                   Footer
@@ -84,6 +87,7 @@
               </div>
             </div>
           </section>
+
     </div><!-- /.content-wrapper -->
 
     <!-- Footer -->

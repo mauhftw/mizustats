@@ -5,7 +5,7 @@
 @section('content')
 
             <!-- form start -->
-{!! Form::open(['route'=>'users.create', 'class'=>'form-horizontal form-validate']) !!}
+{!! Form::open(['route'=>'users.store', 'class'=>'form-horizontal form-validate']) !!}
               <div class="box-body">
                 <div class="form-group">
                   <label for="role" class="col-sm-2 control-label">Seleccione el tipo de usuario</label>

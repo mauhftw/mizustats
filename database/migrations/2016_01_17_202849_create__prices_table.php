@@ -15,7 +15,8 @@ class CreatePricesTable extends Migration
         Schema::create('water_prices', function (Blueprint $table) {
           $table->increments('id');
           $table->string('description',64);
-          $table->integer('value')->unsigned();
+          $table->integer('price')->unsigned();
+          $table->boolean('active');
           $table->timestamps();
         });
     }

@@ -55,13 +55,12 @@ class UsersController extends Controller {
 
     }
 
-
     public static function store(UserRequest $request) {
 
           $role = Role::select('name','id')->where('id','=',$request->input('role_id'))->first();
           $user = new User;
 
-          if ($rol->name == 'Admin') {              //Admin
+          if ($role->name == 'Admin') {              //Admin
               $user->password = Hash::make($request->input('password'));
               $user->active = 1;
               $user->role_id = $role->id;
@@ -151,6 +150,18 @@ class UsersController extends Controller {
 
     }
     public static function delete($id) {
+
+      $user = User::find($id);
+      if (!$user) {
+          return redirect()->back()->withErrors([trans('El usuario seleccionado no existe')]);
+      }
+      $tax->delete();
+      if ($request->ajax()) {
+          return response()->json(['code' => 200]);
+      }
+      else {
+          return redirect()->route('users.index')->with('success',trans('El usuario se ha eliminado correctamente'));
+      }
 
     }
 }

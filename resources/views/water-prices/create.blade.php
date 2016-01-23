@@ -10,15 +10,19 @@
                 <div class="form-group">
                   <label for="price" class="col-sm-2 control-label">Precio</label>
                   <div class="col-sm-3">
-                    <input required type="price" class="form-control" placeholder="$" min ="2" pattern="[0-9.]+">
+                    {!! Form::text('price', '', ['class'=>'form-control', 'required', 'placeholder' => '$', 'minlength'=>'1', 'maxlength'=>'32', 'autofocus', 'pattern' => '[0-9]+']) !!}
                   </div>
                 </div>
                 <div class="form-group">
                   <label for="descrption" class="col-sm-2 control-label">Descripcion</label>
-
                   <div class="col-sm-3">
-                    <input required type="description" class="form-control" placeholder="Descripcion" min="2" pattern="[a-zA-Z]+">
+                    {!! Form::text('description', '', ['class'=>'form-control', 'placeholder' => 'Escriba una pequenia descripcion', 'minlength'=>'2', 'maxlength'=>'32', 'autofocus', 'pattern' => '[a-zA-Z_0-9]+']) !!}
                   </div>
+                </div>
+                <div class="form-group">
+                  <label for="active" class="col-sm-2 control-label">Activo</label>
+                <div class="col-sm-3">
+                  {!! Form::checkbox('active', '1') !!}
                 </div>
               </div>
               <!-- /.box-body -->

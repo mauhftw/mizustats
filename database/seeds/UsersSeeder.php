@@ -12,7 +12,7 @@ class UsersSeeder extends Seeder{
      */
     public function run(){
 
-        $rol = Role::select('id')->where('name', '=', 'admin')->first();
+        $role = Role::select('id')->where('name', '=', 'admin')->first();
         $user = User::create([
           'name' => 'Administrador',
           'lastname' => 'Administrador',
@@ -21,7 +21,7 @@ class UsersSeeder extends Seeder{
           'dni' => '34785999',
           'state_id' => '12',
           'city_id' => '228',
-          'rol_id' => $rol->id,
+          'role_id' => $role->id,
           'active' => '1'
           ]);
 

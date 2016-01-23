@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
+use App\Models\WaterPrice;
 
 class WaterPriceRequest extends Request
 {
@@ -21,11 +22,29 @@ class WaterPriceRequest extends Request
      *
      * @return array
      */
-    public function rules()
-    {
+    public function rules() {
+
+      $http_method = $this->method();
+
+      if($http_method == 'POST') {
+
         return [
           'description' => 'alpha_dash|max:32',
-          'price' => 'required|numeric|unique:water_prices,value',
+          'price' => 'required|numeric|unique:water_prices,price',
+          'active' => 'boolean',
         ];
+
+      } else if ($http_method == 'PUT') {
+
+          $price = WaterPrice::select('id')->where('price','=',$this->price)->first();
+          return [
+            'description' => 'alpha_dash|max:32',
+            'price' => 'required|numeric|unique:water_prices,price,'.$price->id,
+            'active' => 'boolean',
+          ];
+
+      }
+
     }
+
 }

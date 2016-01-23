@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
       $this->call(CitiesSeeder::class);
       $this->call(RolesSeeder::class);
       $this->call(UsersSeeder::class);
+      $this->call(WaterPricesSeeder::class);
 
       Model::reguard();
     }
