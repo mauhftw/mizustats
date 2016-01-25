@@ -10,19 +10,15 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
 Route::group(['middleware' => ['web']], function () {
-
-Route::get('/', function () {
-    return view('template.login');
+  Route::auth();
 });
 
-Route::get('test', function () {
-    return view('welcome');
-});
+Route::group(['middleware' => ['web']], function () {  //AUTH MIDDLEWARE NO FUNCIONA
+
 
 /*Admin dashboard*/
-Route::get('dashboard',['as' => 'dashboard.index', 'uses' => 'AdminReportsController@index']);
+Route::get('dashboard',['as' => 'dashboard.index', 'uses' => 'AdminReportsController@index'])->middleware(['auth']);
 
 /*Client*/
 Route::get('home',['as' => 'home.index', 'uses' => 'ClientReportsController@index']);
