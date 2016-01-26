@@ -9,6 +9,11 @@ use App\Http\Controllers\Controller;
 
 class ExportDataController extends Controller {
 
+  public function __construct()
+  {
+      $this->middleware('auth');
+  }
+  
   public static function index() {
       return view ('export.index');
 

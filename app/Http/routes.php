@@ -11,14 +11,11 @@
 |
 */
 Route::group(['middleware' => ['web']], function () {
-  Route::auth();
-});
 
-Route::group(['middleware' => ['web']], function () {  //AUTH MIDDLEWARE NO FUNCIONA
-
+Route::auth();
 
 /*Admin dashboard*/
-Route::get('dashboard',['as' => 'dashboard.index', 'uses' => 'AdminReportsController@index'])->middleware(['auth']);
+Route::get('dashboard',['as' => 'dashboard.index', 'uses' => 'AdminReportsController@index']);
 
 /*Client*/
 Route::get('home',['as' => 'home.index', 'uses' => 'ClientReportsController@index']);

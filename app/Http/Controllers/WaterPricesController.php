@@ -12,6 +12,11 @@ use Datatables;
 
 class WaterPricesController extends Controller {
 
+  public function __construct()
+  {
+      $this->middleware('auth');
+  }
+
   public static function index() {
       return view ('water-prices.index');
   }

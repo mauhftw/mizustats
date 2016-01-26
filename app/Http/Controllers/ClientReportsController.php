@@ -9,6 +9,11 @@ use App\Http\Controllers\Controller;
 
 class ClientReportsController extends Controller {
 
+  public function __construct()
+  {
+      $this->middleware('auth');
+  }
+  
   public static function index() {
 
   }
