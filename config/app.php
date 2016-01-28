@@ -156,9 +156,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        /*3rd-party Providers*/
+        /*3rd-party Service Providers*/
         Collective\Html\HtmlServiceProvider::class,
-        Yajra\Datatables\DatatablesServiceProvider::class
+        Yajra\Datatables\DatatablesServiceProvider::class,
+        Jenssegers\Mongodb\MongodbServiceProvider::class,
+
 
 
 
