@@ -14,6 +14,10 @@ Route::group(['middleware' => ['web']], function () {
 
 Route::auth();
 
+/*Route::get('phpinfo', function(){
+    return(phpinfo());
+});*/
+
 /*Admin dashboard*/
 Route::get('dashboard',['as' => 'dashboard.index', 'uses' => 'AdminReportsController@index']);
 

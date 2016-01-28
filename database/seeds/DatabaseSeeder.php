@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+  use Jenssegers\Mongodb\Model as Moloquent;
 
 class DatabaseSeeder extends Seeder
 {
