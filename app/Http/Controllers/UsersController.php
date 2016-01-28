@@ -20,7 +20,7 @@ class UsersController extends Controller {
   {
       $this->middleware('auth');
   }
-  
+
 
     public static function index() {
       return view('users.index');
@@ -28,7 +28,12 @@ class UsersController extends Controller {
 
     public static function getDatatable() {
 
-      $users = User::select(['id','name','lastname','state_id','city_id'])->get();
+      $users = User::select(['id','name','lastname','state_id','city_id'])->with('state','city')->get();
+      foreach ($users as $user) {
+          $user->state_name = $user->state->name;
+          $user->city_name = $user->city->name;
+      }
+      
       $datatable = Datatables::of($users);
       $datatable->addColumn('actions', '<a href="{{ URL::to(\'users/\' . $id.\'/edit\') }}" class="btn btn-default" title="Editar" ><i class="fa fa-edit"></i></a>
                                         <a href="#deleteModal" class="mb-xs mt-xs mr-xs modal-with-zoom-anim btn btn-danger delete-link" data-href="{{ URL::to(\'users/\' . $id) }}" title="Eliminar" ><i class="fa fa-trash"></i></a>');

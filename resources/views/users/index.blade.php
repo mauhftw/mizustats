@@ -50,8 +50,8 @@
         {data: 'id', name: 'id', className: "center"},
         {data: 'name', name: 'name'},
         {data: 'lastname', name: 'lastname'},
-        {data: 'state_id', name: 'state'},
-        {data: 'city_id', name: 'city', className: "center"},
+        {data: 'state_name', name: 'state_name'},
+        {data: 'city_name', name: 'city_name', className: "center"},
         {data: 'actions',name: 'actions', className: "center", orderable: false, searchable: false}
         ]
     });

@@ -30,4 +30,8 @@ class User extends Authenticatable
     public function state() {
         return $this->belongsTo('App\Models\State');
     }
+
+    public function city() {
+        return $this->belongsTo('App\Models\City');
+    }
 }
