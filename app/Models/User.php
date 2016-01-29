@@ -34,4 +34,10 @@ class User extends Authenticatable
     public function city() {
         return $this->belongsTo('App\Models\City');
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('active', 1);
+    }
+
 }

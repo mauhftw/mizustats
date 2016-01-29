@@ -20,6 +20,12 @@ Route::auth();
 
 /*Admin dashboard*/
 Route::get('dashboard',['as' => 'dashboard.index', 'uses' => 'AdminReportsController@index']);
+Route::get('dashboard/users',['as' => 'dashboard.users', 'uses' => 'AdminReportsController@showRegisteredUsers']);
+Route::get('dashboard/total',['as' => 'dashboard.total', 'uses' => 'AdminReportsController@showWaterConsumption']);
+Route::get('dashboard/hour',['as' => 'dashboard.water.hour', 'uses' => 'AdminReportsController@showWaterConsumptionPerHour']);
+Route::get('dashboard/largest',['as' => 'dashboard.largest', 'uses' => 'AdminReportsController@showLargestStateConsumer']);
+
+
 
 /*Client*/
 Route::get('home',['as' => 'home.index', 'uses' => 'ClientReportsController@index']);
