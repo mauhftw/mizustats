@@ -78,7 +78,6 @@ class AdminReportsController extends Controller {
 
         $consumers = DB::table('water_registers')->select('city',DB::raw('sum(value) as total'))
                         ->whereBetween('date',[$first_day,$last_day])
-                        ->where('date', '=', $today)
                         ->where('state','=','Mendoza')
                         ->orderBy('total','desc') //ordeno de mayor a menor
                         ->groupBy('city')
