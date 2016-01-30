@@ -14,16 +14,16 @@ Route::group(['middleware' => ['web']], function () {
 
 Route::auth();
 
-/*Route::get('phpinfo', function(){
-    return(phpinfo());
-});*/
-
 /*Admin dashboard*/
 Route::get('dashboard',['as' => 'dashboard.index', 'uses' => 'AdminReportsController@index']);
 Route::get('dashboard/users',['as' => 'dashboard.users', 'uses' => 'AdminReportsController@showRegisteredUsers']);
 Route::get('dashboard/total',['as' => 'dashboard.total', 'uses' => 'AdminReportsController@showWaterConsumption']);
 Route::get('dashboard/hour',['as' => 'dashboard.water.hour', 'uses' => 'AdminReportsController@showWaterConsumptionPerHour']);
 Route::get('dashboard/largest',['as' => 'dashboard.largest', 'uses' => 'AdminReportsController@showLargestStateConsumer']);
+Route::get('dashboard/month',['as' => 'dashboard.month', 'uses' => 'AdminReportsController@showTotalMonthConsumption']);
+
+Route::get('dashboard/cities/month',['as' => 'dashboard.graph.cities', 'uses' => 'AdminReportsController@showCitiesMonthsConsumptionGraph']);
+Route::get('dashboard/cities/day',['as' => 'dashboard.graph.days', 'uses' => 'AdminReportsController@showCitiesDaysConsumptionGraph']);
 
 
 

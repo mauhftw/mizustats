@@ -44,20 +44,60 @@ class AdminReportsController extends Controller {
 
   }
 
-  public static function showLargestStateConsumer() {
+  public static function showLargestStateConsumer() {   //mayor y menor en este
         $today = date("Y-m-d");
-      /*  $consumers = WaterRegister::where('date', '=', $today)
-                          ->where('state', '=', 'Mendoza')
-                          //->groupBy('city')
-
-                          ->get();*/
-          /*$consumers = DB::table('water_registers')->where('date', '=', $today)
+        $consumers = DB::table('water_registers')->select('city',DB::raw('sum(value) as total'))
+                            ->where('date', '=', $today)
                             ->where('state','=','Mendoza')
+                            ->orderBy('total','desc') //ordeno de mayor a menor
                             ->groupBy('city')
-                            ->sum('value')
-                            ->get();*/
-         echo $consumers;
+                            ->get();
+        //manejar errores
+       $largest = reset($consumers);  //1er elemento, mayor
+       $smallest = end($consumers);  //ultimo elemento, menor
+       print_r($largest);
+       print_r ($smallest);
 
   }
+
+  public static function showTotalMonthConsumption() {
+        $first_day = date("Y-m-01");
+        $last_day = date("Y-m-t");
+
+        $total = WaterRegister::where('state','=','Mendoza')
+                              ->whereBetween('date',[$first_day,$last_day])
+                              ->sum('value');
+        echo $total;
+
+  }
+
+  public static function showCitiesMonthsConsumptionGraph() { //todas las ciudades en el mes
+        $today = date("Y-m-d");
+        $first_day = date("Y-m-01");
+        $last_day = date("Y-m-t");
+
+        $consumers = DB::table('water_registers')->select('city',DB::raw('sum(value) as total'))
+                        ->whereBetween('date',[$first_day,$last_day])
+                        ->where('date', '=', $today)
+                        ->where('state','=','Mendoza')
+                        ->orderBy('total','desc') //ordeno de mayor a menor
+                        ->groupBy('city')
+                        ->get();
+        dd($consumers);
+  }
+
+  public static function showCitiesDaysConsumptionGraph() {   //todos las ciudades en el dia
+    $today = date("Y-m-d");
+    $consumers = DB::table('water_registers')->select('city',DB::raw('sum(value) as total'))
+                        ->where('date', '=', $today)
+                        ->where('state','=','Mendoza')
+                        ->orderBy('total','desc') //ordeno de mayor a menor
+                        ->groupBy('city')
+                        ->get();
+    dd($consumers);
+
+
+  }
+
 
 }
