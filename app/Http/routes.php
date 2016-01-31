@@ -10,8 +10,8 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::group(['middleware' => ['web']], function () {
 
+Route::group(['middleware' => ['web']], function () {
 Route::auth();
 
 /*Admin dashboard*/
@@ -55,6 +55,8 @@ Route::delete('water-prices/{id}',['as' => 'water-prices.delete', 'uses' => 'Wat
 Route::get('export',['as' => 'export.index', 'uses' => 'ExportDataController@index']);
 Route::get('export/download',['as' => 'export.download', 'uses' => 'ExportDataController@download']);
 
+});
+
 
 /*
 |--------------------------------------------------------------------------
@@ -66,7 +68,3 @@ Route::get('export/download',['as' => 'export.download', 'uses' => 'ExportDataCo
 | kernel and includes session state, CSRF protection, and more.
 |
 */
-
-
-
-});

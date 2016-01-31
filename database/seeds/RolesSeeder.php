@@ -9,8 +9,8 @@ class RolesSeeder extends Seeder
     {
         $date = date('Y-m-d H:i:s');
         $roles = [
-            ['id' => 1, 'name' => 'Admin', 'created_at' => $date, 'updated_at' => $date],
-            ['id' => 2, 'name' => 'User', 'created_at' => $date, 'updated_at' => $date]
+            ['id' => 1, 'name' => 'admin', 'created_at' => $date, 'updated_at' => $date],
+            ['id' => 2, 'name' => 'user', 'created_at' => $date, 'updated_at' => $date]
         ];
 
       DB::table('roles')->insert($roles);

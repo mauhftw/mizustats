@@ -40,4 +40,16 @@ class User extends Authenticatable
         return $query->where('active', 1);
     }
 
+    public function isUser($role_name) {
+        foreach ($this->role()->get() as $role) {
+            if ($role->name == $role_name) {
+                return true;
+              }
+        }
+        return false;
+    }
+
+
+
+
 }

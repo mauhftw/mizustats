@@ -22,7 +22,7 @@ class AdminReportsController extends Controller {
   }
 
   public static function showRegisteredUsers() {
-      $users = User::select('id')->active()->get();
+      $users = User::select('id')->active()->count();
       echo $users;
   }
 
