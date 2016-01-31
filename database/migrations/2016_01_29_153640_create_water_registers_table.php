@@ -19,6 +19,7 @@ class CreateWaterRegistersTable extends Migration
         $table->string('state',32);
         $table->string('city', 32);
         $table->date('date');
+        $table->time('time');
     });
 
   }

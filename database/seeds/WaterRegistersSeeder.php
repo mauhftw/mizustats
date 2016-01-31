@@ -22,7 +22,8 @@ class WaterRegistersSeeder extends Seeder
               'value' => $faker->numberBetween($min = 70, $max =350),
               'city' => $city[array_rand($city,1)],
               'state' => 'Mendoza',
-              'date' => $faker->dateTimeBetween($startDate = '-2 days', $endDate = '+30 days'),
+              'date' => $faker->dateTimeBetween($startDate = '-10 days', $endDate = 'now'),
+              'time' => $faker->time($format = 'H:i:s'),
             ]);
       }
 

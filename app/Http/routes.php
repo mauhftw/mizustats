@@ -10,8 +10,10 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::auth();
+
 Route::group(['middleware' => ['web']], function () {
+  
+Route::auth();
 
 /*Admin dashboard*/
 Route::get('dashboard',['as' => 'dashboard.index', 'uses' => 'AdminReportsController@index']);
@@ -25,9 +27,22 @@ Route::get('dashboard/cities/month',['as' => 'dashboard.graph.cities', 'uses' =>
 Route::get('dashboard/cities/day',['as' => 'dashboard.graph.days', 'uses' => 'AdminReportsController@showCitiesDaysConsumptionGraph']);
 
 
-
 /*Client*/
 Route::get('home',['as' => 'home.index', 'uses' => 'ClientReportsController@index']);
+Route::get('home/month',['as' => 'home.month', 'uses' => 'ClientReportsController@showTotalMonthConsumption']);
+Route::get('home/city',['as' => 'home.city', 'uses' => 'ClientReportsController@showCityConsumption']);
+Route::get('home/day',['as' => 'home.day', 'uses' => 'ClientReportsController@showWaterConsumption']);
+Route::get('home/price',['as' => 'home.price', 'uses' => 'ClientReportsController@showWaterPrice']);
+Route::get('home/bill',['as' => 'home.bill', 'uses' => 'ClientReportsController@showWaterBill']);
+Route::get('home/graphs/day',['as' => 'home.graphs.day', 'uses' => 'ClientReportsController@showDayConsumptionGraph']);
+Route::get('home/graphs/hour',['as' => 'home.graphs.hour', 'uses' => 'ClientReportsController@showHourConsumptionGraph']);
+
+/*User Profile*/
+Route::get('profile/edit', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
+Route::put('profile/{id}', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
+
+/*Information*/
+Route::get('info',['as' => 'info', 'uses' => 'InfoController@index']);
 
 
 /*Users*/
