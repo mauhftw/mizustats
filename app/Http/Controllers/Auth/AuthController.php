@@ -30,6 +30,15 @@ class AuthController extends Controller
      */
     protected $redirectTo = '/dashboard';
 
+  // Logic that determines where to send the user
+    public function redirectPath() {
+      if (\Auth::user()->isUser('user')) {
+        return '/home';
+    }
+
+    return '/dashboard';
+}
+
     /**
      * Create a new authentication controller instance.
      *

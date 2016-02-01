@@ -12,20 +12,8 @@
 */
 
 Route::group(['middleware' => ['web']], function () {
-  
+
 Route::auth();
-
-/*Admin dashboard*/
-Route::get('dashboard',['as' => 'dashboard.index', 'uses' => 'AdminReportsController@index']);
-Route::get('dashboard/users',['as' => 'dashboard.users', 'uses' => 'AdminReportsController@showRegisteredUsers']);
-Route::get('dashboard/total',['as' => 'dashboard.total', 'uses' => 'AdminReportsController@showWaterConsumption']);
-Route::get('dashboard/hour',['as' => 'dashboard.water.hour', 'uses' => 'AdminReportsController@showWaterConsumptionPerHour']);
-Route::get('dashboard/largest',['as' => 'dashboard.largest', 'uses' => 'AdminReportsController@showLargestStateConsumer']);
-Route::get('dashboard/month',['as' => 'dashboard.month', 'uses' => 'AdminReportsController@showTotalMonthConsumption']);
-
-Route::get('dashboard/cities/month',['as' => 'dashboard.graph.cities', 'uses' => 'AdminReportsController@showCitiesMonthsConsumptionGraph']);
-Route::get('dashboard/cities/day',['as' => 'dashboard.graph.days', 'uses' => 'AdminReportsController@showCitiesDaysConsumptionGraph']);
-
 
 /*Client*/
 Route::get('home',['as' => 'home.index', 'uses' => 'ClientReportsController@index']);
@@ -43,6 +31,18 @@ Route::put('profile/{id}', ['as' => 'profile.update', 'uses' => 'ProfileControll
 
 /*Information*/
 Route::get('info',['as' => 'info', 'uses' => 'InfoController@index']);
+
+/*Admin dashboard*/
+Route::get('dashboard',['as' => 'dashboard.index', 'uses' => 'AdminReportsController@index']);
+Route::get('dashboard/users',['as' => 'dashboard.users', 'uses' => 'AdminReportsController@showRegisteredUsers']);
+Route::get('dashboard/total',['as' => 'dashboard.total', 'uses' => 'AdminReportsController@showWaterConsumption']);
+Route::get('dashboard/hour',['as' => 'dashboard.water.hour', 'uses' => 'AdminReportsController@showWaterConsumptionPerHour']);
+Route::get('dashboard/largest',['as' => 'dashboard.largest', 'uses' => 'AdminReportsController@showLargestStateConsumer']);
+Route::get('dashboard/month',['as' => 'dashboard.month', 'uses' => 'AdminReportsController@showTotalMonthConsumption']);
+
+Route::get('dashboard/cities/month',['as' => 'dashboard.graph.cities', 'uses' => 'AdminReportsController@showCitiesMonthsConsumptionGraph']);
+Route::get('dashboard/cities/day',['as' => 'dashboard.graph.days', 'uses' => 'AdminReportsController@showCitiesDaysConsumptionGraph']);
+
 
 
 /*Users*/

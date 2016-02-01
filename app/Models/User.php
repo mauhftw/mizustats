@@ -41,11 +41,9 @@ class User extends Authenticatable
     }
 
     public function isUser($role_name) {
-        foreach ($this->role()->get() as $role) {
-            if ($role->name == $role_name) {
-                return true;
-              }
-        }
+      if ($this->role->name == $role_name) {
+        return true;
+      }
         return false;
     }
 
