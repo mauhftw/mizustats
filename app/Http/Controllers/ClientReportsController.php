@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\WaterRegister;
 use App\Models\WaterPrice;
+use App\Models\Role;
 use App\Models\City;
 use DB;
 
@@ -16,7 +17,9 @@ class ClientReportsController extends Controller {
 
   public function __construct()
   {
-      $this->middleware('auth');
+    $role = Role::where('name','user')->first();
+    $this->middleware('auth');
+    $this->authorize('auth',$role);
   }
 
   public static function index() {

@@ -15,6 +15,8 @@ class WaterPricesController extends Controller {
   public function __construct()
   {
       $this->middleware('auth');
+      $role = Role::where('name','admin')->first();
+      $this->authorize('auth',$role);
   }
 
   public static function index() {

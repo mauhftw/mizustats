@@ -32,6 +32,7 @@ Route::put('profile/{id}', ['as' => 'profile.update', 'uses' => 'ProfileControll
 /*Information*/
 Route::get('info',['as' => 'info', 'uses' => 'InfoController@index']);
 
+
 /*Admin dashboard*/
 Route::get('dashboard',['as' => 'dashboard.index', 'uses' => 'AdminReportsController@index']);
 Route::get('dashboard/users',['as' => 'dashboard.users', 'uses' => 'AdminReportsController@showRegisteredUsers']);
@@ -42,7 +43,6 @@ Route::get('dashboard/month',['as' => 'dashboard.month', 'uses' => 'AdminReports
 
 Route::get('dashboard/cities/month',['as' => 'dashboard.graph.cities', 'uses' => 'AdminReportsController@showCitiesMonthsConsumptionGraph']);
 Route::get('dashboard/cities/day',['as' => 'dashboard.graph.days', 'uses' => 'AdminReportsController@showCitiesDaysConsumptionGraph']);
-
 
 
 /*Users*/
@@ -68,6 +68,7 @@ Route::delete('water-prices/{id}',['as' => 'water-prices.delete', 'uses' => 'Wat
 /*export data*/
 Route::get('export',['as' => 'export.index', 'uses' => 'ExportDataController@index']);
 Route::get('export/download',['as' => 'export.download', 'uses' => 'ExportDataController@download']);
+
 
 });
 

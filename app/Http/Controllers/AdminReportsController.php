@@ -8,17 +8,28 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\WaterRegister;
 use App\Models\User;
+use App\Models\Role;
+use Gate;
 use DB;
 
 class AdminReportsController extends Controller {
 
   public function __construct()
   {
+      $role = Role::where('name','admin')->first();
       $this->middleware('auth');
+      $this->authorize('auth',$role);
 
   }
 
   public static function index() {
+
+    $role = Role::where('name','admin')->first();
+
+    /*if (Gate::denies('auth', $role)) {
+        abort(403,'Nope');
+      }*/
+
       return view('dashboard.index');
   }
 
