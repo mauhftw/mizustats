@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\WaterPrice;
 use App\Http\Requests\WaterPriceRequest;
+use App\Models\Role;
 use Datatables;
 
 class WaterPricesController extends Controller {
