@@ -25,5 +25,18 @@ class UsersSeeder extends Seeder{
           'active' => '1'
           ]);
 
+          $role = Role::select('id')->where('name', '=', 'user')->first();
+          $user = User::create([
+            'name' => 'User',
+            'lastname' => 'User',
+            'email' => 'user@user.com',
+            'password' => bcrypt('123456'),
+            'dni' => '34785999',
+            'state_id' => '12',
+            'city_id' => '228',
+            'role_id' => $role->id,
+            'active' => '1'
+            ]);
+
     }
 }

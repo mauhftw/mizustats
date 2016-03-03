@@ -13,6 +13,7 @@
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-12">
+                  <h3>Estadisticas del dia</h3>
                     <table class="table table-bordered table-striped" id="datatable" data-url="{{{ url('dashboard/data') }}}">
                         <thead>
                             <tr>
@@ -20,14 +21,15 @@
                                 <th class="col-md-2 center">Consumo acumulado del dia [lts]</th>
                                 <th class="col-md-2 center">Consumo/hora [lts]</th>
                                 <th class="col-md-2 center">Mayor consumidor</th>
-                                <th class="col-md-2 center">Consumo del mayor consumidor</th>
+                                <th class="col-md-2 center">Menor consumidor</th>
                                 <th class="col-md-3 center">Consumo acumulado del mes</th>
                             </tr>
                         </thead>
                     </table>
                 </div>
-                  <div class="col-md-12">
-                    <div id="chart_div"></div>
+                  <div class="row">
+                    <div class="col-md-6" id="consumption_month_chart"></div>
+                    <div class="col-md-6" id="consumption_day_chart"></div>
                   </div>
             </div>
         </div>
@@ -51,7 +53,7 @@
         {data: 'consumption', name: 'consumption'},
         {data: 'consumptionPerHour', name: 'consumptionPerHour'},
         {data: 'largestConsumer', name: 'largestConsumer'},
-        {data: 'largestConsumerValue', name: 'largestConsumerValue', className: "center"},
+        {data: 'smallestConsumer', name: 'smallestConsumer', className: "center"},
         {data: 'totalConsumption',name: 'totalConsumption', className: "center"}
         ]
     });
@@ -63,35 +65,56 @@
 
 // Load the Visualization API and the piechart package.
 google.charts.load('current', {'packages':['corechart']});
-
 // Set a callback to run when the Google Visualization API is loaded.
 google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
-  var jsonData = $.ajax({
-      url: "dashboard/cities/month",
-      dataType: "json",
-      async: false
-      }).responseText;
+    monthChart();
+    dayChart();
+  }
 
-  // Create our data table out of JSON data loaded from server.
-  var data = new google.visualization.DataTable(jsonData);
-  data.addColumn('string', 'cities');
-  data.addColumn('number', 'water');
-  console.log(jsonData);
-  var options = {
-    title: 'Consumo del mes',
-    hAxis: {title: 'Consumo', titleTextStyle: {color: 'green'}},
-    vAxis: {title: 'Ciudad', titleTextStyle: {color: '#FF0000'}},
-  //  backgroundColor:'#ffffcc',
-  //  legend:{position: 'bottom', textStyle: {color: 'blue', fontSize: 13}},
-    width:320,
-    height:240
-};
+function monthChart() {
+
+    var jsonData = $.ajax({
+    url: "dashboard/chart/month",
+    dataType: "json",
+    async: false
+    }).responseText;
+
+   // Create our data table out of JSON data loaded from server.
+   var data = new google.visualization.DataTable(jsonData);
+   var options = {
+   title: 'Consumo acumulado del mes',
+   hAxis: {title: 'Litros'},
+   width:600,
+   height:400
+   };
   // Instantiate and draw our chart, passing in some options.
 
-  var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-  chart.draw(data, options);
+   var chart = new google.visualization.BarChart(document.getElementById('consumption_month_chart'));
+   chart.draw(data, options);
+}
+
+function dayChart() {
+
+  var jsonData = $.ajax({
+  url: "dashboard/chart/day",
+  dataType: "json",
+  async: false
+  }).responseText;
+
+ // Create our data table out of JSON data loaded from server.
+ var data = new google.visualization.DataTable(jsonData);
+ var options = {
+ title: 'Consumo acumulado del dia',
+ hAxis: {title: 'Litros'},
+ width:600,
+ height:400
+ };
+// Instantiate and draw our chart, passing in some options.
+
+ var chart = new google.visualization.BarChart(document.getElementById('consumption_day_chart'));
+ chart.draw(data, options);
 }
 </script>
 @stop

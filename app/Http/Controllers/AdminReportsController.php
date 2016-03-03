@@ -55,6 +55,7 @@ class AdminReportsController extends Controller {
      $largestConsumer = reset($consumers);  //1er elemento, mayor
      $smallestConsumer = end($consumers);  //ultimo elemento, menor
 
+
      /*Total month consumption*/
      $first_day = date("Y-m-01");
      $last_day = date("Y-m-t");
@@ -77,11 +78,10 @@ class AdminReportsController extends Controller {
      $aux->consumption = $consumption;
      $aux->consumptionPerHour = $consumptionPerHour;
      $aux->largestConsumer = $largestConsumer->city;
-     $aux->largestConsumerValue = $largestConsumer->total;
+     $aux->smallestConsumer = $smallestConsumer->city;
      $aux->totalConsumption = $totalConsumption;
 
      $data = [collect($aux)];   //hack super villa, para transformar a coleccion de datos
-
 
     $datatable = Datatables::of(collect($data));
     return $datatable->make(true);
@@ -145,14 +145,32 @@ class AdminReportsController extends Controller {
                         ->orderBy('total','desc') //ordeno de mayor a menor
                         ->groupBy('city')
                         ->get();
-        //dd($consumers);
-        $test = [
-          ['ciudad' => 220],
-          ['las heras' => 15],
-          ['pepe' => 22],
+
+//Google charts JSON's format
+
+        $cols = [
+          ["label"=>"Departamentos","type" => "string"],
+          ["label"=>"Consumo","type" => "number"]
         ];
-        //return json_encode($test);
-        return response()->json($consumers);
+
+        $aux = [];
+        $param1 = [];
+        $param2 = [];
+        $param3 = [];
+        $param4 = [];
+        $cell = [];
+        $rows = [];
+        $cell['cols'] = $cols;
+
+        foreach ($consumers as $key => $value) {
+              $param1['v'] = $consumers[$key]->city;
+              $param2['v'] = $consumers[$key]->total;
+              $rows['c'] = [$param1,$param2];
+              $param3[] = $rows;
+              $cell['rows'] = $param3;
+        }
+
+      return response()->json($cell);
   }
 
   public static function showCitiesDaysConsumptionGraph() {   //todos las ciudades en el dia
@@ -163,9 +181,32 @@ class AdminReportsController extends Controller {
                         ->orderBy('total','desc') //ordeno de mayor a menor
                         ->groupBy('city')
                         ->get();
-    dd($consumers);
+    //dd($consumers);
 
+    //Google charts JSON's format
+    $cols = [
+      ["label"=>"Departamentos","type" => "string"],
+      ["label"=>"Consumo","type" => "number"]
+    ];
 
+    $aux = [];
+    $param1 = [];
+    $param2 = [];
+    $param3 = [];
+    $param4 = [];
+    $cell = [];
+    $rows = [];
+    $cell['cols'] = $cols;
+
+    foreach ($consumers as $key => $value) {
+          $param1['v'] = $consumers[$key]->city;
+          $param2['v'] = $consumers[$key]->total;
+          $rows['c'] = [$param1,$param2];
+          $param3[] = $rows;
+          $cell['rows'] = $param3;
+    }
+
+    return response()->json($cell);
   }
 
 

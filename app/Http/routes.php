@@ -17,13 +17,15 @@ Route::auth();
 
 /*Client*/
 Route::get('home',['as' => 'home.index', 'uses' => 'ClientReportsController@index']);
-Route::get('home/month',['as' => 'home.month', 'uses' => 'ClientReportsController@showTotalMonthConsumption']);
-Route::get('home/city',['as' => 'home.city', 'uses' => 'ClientReportsController@showCityConsumption']);
-Route::get('home/day',['as' => 'home.day', 'uses' => 'ClientReportsController@showWaterConsumption']);
-Route::get('home/price',['as' => 'home.price', 'uses' => 'ClientReportsController@showWaterPrice']);
-Route::get('home/bill',['as' => 'home.bill', 'uses' => 'ClientReportsController@showWaterBill']);
-Route::get('home/graphs/day',['as' => 'home.graphs.day', 'uses' => 'ClientReportsController@showDayConsumptionGraph']);
-Route::get('home/graphs/hour',['as' => 'home.graphs.hour', 'uses' => 'ClientReportsController@showHourConsumptionGraph']);
+Route::get('home/data',['as' => 'dashboard.getDatatable', 'uses' => 'ClientReportsController@getDatatable']);
+//Route::get('home/month',['as' => 'home.month', 'uses' => 'ClientReportsController@showTotalMonthConsumption']);
+//Route::get('home/city',['as' => 'home.city', 'uses' => 'ClientReportsController@showCityConsumption']);
+//Route::get('home/day',['as' => 'home.day', 'uses' => 'ClientReportsController@showWaterConsumption']);
+//Route::get('home/price',['as' => 'home.price', 'uses' => 'ClientReportsController@showWaterPrice']);
+//Route::get('home/bill',['as' => 'home.bill', 'uses' => 'ClientReportsController@showWaterBill']);
+
+Route::get('home/chart/day',['as' => 'home.graphs.day', 'uses' => 'ClientReportsController@showDayConsumptionGraph']);
+Route::get('home/chart/hour',['as' => 'home.graphs.hour', 'uses' => 'ClientReportsController@showHourConsumptionGraph']);
 
 /*User Profile*/
 Route::get('profile/edit', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
@@ -41,8 +43,8 @@ Route::get('dashboard/data',['as' => 'dashboard.getDatatable', 'uses' => 'AdminR
 //Route::get('dashboard/largest',['as' => 'dashboard.largest', 'uses' => 'AdminReportsController@showLargestStateConsumer']);
 //Route::get('dashboard/month',['as' => 'dashboard.month', 'uses' => 'AdminReportsController@showTotalMonthConsumption']);
 
-Route::get('dashboard/cities/month',['as' => 'dashboard.graph.cities', 'uses' => 'AdminReportsController@showCitiesMonthsConsumptionGraph']);
-Route::get('dashboard/cities/day',['as' => 'dashboard.graph.days', 'uses' => 'AdminReportsController@showCitiesDaysConsumptionGraph']);
+Route::get('dashboard/chart/month',['as' => 'dashboard.graph.cities', 'uses' => 'AdminReportsController@showCitiesMonthsConsumptionGraph']);
+Route::get('dashboard/chart/day',['as' => 'dashboard.graph.days', 'uses' => 'AdminReportsController@showCitiesDaysConsumptionGraph']);
 
 
 /*Users*/
