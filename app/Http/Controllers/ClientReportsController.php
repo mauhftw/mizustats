@@ -11,6 +11,7 @@ use App\Models\WaterPrice;
 use App\Models\Role;
 use App\Models\City;
 use DB;
+use Datatables;
 use stdClass;
 
 
@@ -33,64 +34,52 @@ class ClientReportsController extends Controller {
         $last_day = date("Y-m-t");
         $today = date("Y-m-d");
 
-        /*month consumption*/
-        $monthConsumption = WaterRegister::where('state','=','Mendoza') //reemplazar por session(user_id)
+        /* MONTH user consumption*/
+        $monthUserConsumption = WaterRegister::where('state','=','Mendoza') //reemplazar por session(user_id)
                               ->where('user_id','=','1')  //reemplazar por session(user_id)
                               ->whereBetween('date',[$first_day,$last_day])
                               ->sum('value');
 
-        /*city consumption*/
-        $cityConsumption = WaterRegister::select(DB::raw('count(id) as total, avg(value) as avg'))
+        /* MONTH city consumption total and average lts/hour*/
+        $cityConsumption = WaterRegister::select(DB::raw('sum(value) as total, avg(value) as avg'))
                               ->where('city','=','Godoycruz') //reemplazar por city
                               ->whereBetween('date',[$first_day,$last_day])
                               ->groupBy('city')
                               ->get();
-        //echo $cityConsumption;
-//DUDAAAAAAAAAA usar average, cambiar count id por sum(id)
-        $consumptionPerHour = $cityConsumption[0]->avg/60;
-        //echo $consumptionPerHour;
 
-        /*city average consumption*/
-        $cityAverage = WaterRegister::where('city','=','Godoycruz') //reemplazar por city
-                              ->whereBetween('date',[$first_day,$last_day])
-                              ->sum('value');
-        //echo $cityAverage;
+        $cityTotalConsumption = $cityConsumption[0]->total;
+        $cityAverage = $cityConsumption[0]->avg;
 
-        /*current consumption*/
+        /*current consumption and liters per hour (DAY)*/
         $consumption = WaterRegister::where('date', '=', $today)
                           ->where('user_id', '=', '1')  //traer user id de la session
                           ->sum('value');
-        //echo $consumption;
+        $consumptionPerHour = $consumption/60;
 
+        /*water price*/
         $waterPrice = WaterPrice::select('price')->active()->get();
-        //echo $waterPrice;
 
         /*water bill*/
-        //$price = WaterPrice::select('price')->active()->get();
-        //echo $price;
         $price = $waterPrice[0]->price;
-        //echo $price;
-
-
         $liters = WaterRegister::where('date', '=', $today)
                           ->where('user_id', '=', '1')  //traer user id de la session
                           ->sum('value');
 
         $bill = $liters*$price;
-        //echo $bill;
 
         $aux = new stdClass;
-        $aux->monthConsumption = $monthConsumption;
-        $aux->cityConsumption = $cityConsumption;
-        $aux->consumptionPerHour = $consumptionPerHour;
+        $aux->monthUserConsumption = $monthUserConsumption;
+        $aux->cityTotalConsumption = $cityTotalConsumption;
         $aux->cityAverage = $cityAverage;
-        $aux->consumtion = $consumption;
-        $aux->waterPrice = $waterPrice;
+        $aux->consumptionPerHour = $consumptionPerHour;
+        $aux->consumption = $consumption;
+        $aux->waterPrice = $price;
         $aux->bill = $bill;
 
-        dd ($aux);
+        $data = [collect($aux)];
 
-
+        $datatable = Datatables::of(collect($data));
+        return $datatable->make(true);
 
   }
 
@@ -160,8 +149,7 @@ class ClientReportsController extends Controller {
 
   public static function showDayConsumptionGraph() { //consumo de los dias de la semana
         $first = date("Y-m-d");
-        $last = date("Y-m-d",strtotime('-5 day'));
-        echo $last;
+        $last = date("Y-m-d",strtotime('-6 day'));
         //echo $last;
         $consumption = DB::table('water_registers')->select('date',DB::raw('sum(value) as total'))
                         ->whereBetween('date',[$last,$first])
