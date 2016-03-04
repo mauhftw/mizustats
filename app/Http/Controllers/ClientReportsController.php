@@ -157,21 +157,83 @@ class ClientReportsController extends Controller {
                         ->where('user_id', '=', '1')
                         ->groupBy('date') //ordeno de mayor a menor
                         ->get();
-        dd($consumption);
-  }
-  public static function showHourConsumptionGraph() { //consumo por hora
-        $first = date("H:i:s");
-        $last = date("H:i:s",strtotime('-6 Hour'));   //ver el rango de horas
-        //echo $last;
+        //dd($consumption);
 
-        $consumption = DB::table('water_registers')->select('time',DB::raw('sum(value) as total'))
-                        ->whereBetween('time',[$last,$first])
-                        ->where('state','=','Mendoza') //buscar su zona
-                        ->where('user_id', '=', '1')
-                        ->groupBy('time') //ordeno de mayor a menor
-                        ->get();
-        dd($consumption);
-        //conviene guardar la hora en vez de la hora completa..
+        //Google charts JSON's format
+                $cols = [
+                  ["label"=>"Fecha","type" => "string"],
+                  ["label"=>"Consumo","type" => "number"]
+                ];
+
+                $aux = [];
+                $param1 = [];
+                $param2 = [];
+                $param3 = [];
+                $param4 = [];
+                $cell = [];
+                $rows = [];
+                $cell['cols'] = $cols;
+
+                foreach ($consumption as $key => $value) {
+                      $param1['v'] = $consumption[$key]->date;
+                      $param2['v'] = $consumption[$key]->total;
+                      $rows['c'] = [$param1,$param2];
+                      $param3[] = $rows;
+                      $cell['rows'] = $param3;
+                }
+
+              return response()->json($cell);
+  }
+  public static function showMonthConsumptionGraph() { //consumo por hora
+
+        $first_day = date("Y-m-01");
+        $last_day = date("Y-m-t");
+        $previous_first_day = date("Y-m-01", strtotime('-1 month'));
+        $previous_last_day = date("Y-m-t", strtotime('-1 month'));
+
+        /*consumo del mes actual*/
+        $currentMonthConsumption = WaterRegister::where('state','=','Mendoza') //reemplazar por session(user_id)
+                              ->where('user_id','=','1')  //reemplazar por session(user_id)
+                              ->whereBetween('date',[$first_day,$last_day])
+                              ->sum('value');
+
+        /*consumo del mes anterior*/
+        $previousMonth = WaterRegister::where('state','=','Mendoza') //reemplazar por session(user_id)
+                              ->where('user_id','=','1')  //reemplazar por session(user_id)
+                              ->whereBetween('date',[$previous_first_day,$previous_last_day])
+                              ->sum('value');
+
+
+        $consumption = [
+            ['month' => date('M',strtotime('-1 month')), 'value' => $previousMonth],
+            ['month' => date('M'), 'value' => $currentMonthConsumption],
+        ];
+
+        //Google charts JSON's format
+        $cols = [
+          ["label"=>"Mes","type" => "string"],
+          ["label"=>"Consumo","type" => "number"]
+        ];
+
+        $aux = [];
+        $param1 = [];
+        $param2 = [];
+        $param3 = [];
+        $param4 = [];
+        $cell = [];
+        $rows = [];
+        $cell['cols'] = $cols;
+
+        foreach ($consumption as $key => $value) {
+              $param1['v'] = $consumption[$key]['month'];
+              $param2['v'] = $consumption[$key]['value'];
+              $rows['c'] = [$param1,$param2];
+              $param3[] = $rows;
+              $cell['rows'] = $param3;
+        }
+
+      return response()->json($cell);
+
   }
 
 

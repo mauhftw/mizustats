@@ -25,7 +25,7 @@ Route::get('home/data',['as' => 'dashboard.getDatatable', 'uses' => 'ClientRepor
 //Route::get('home/bill',['as' => 'home.bill', 'uses' => 'ClientReportsController@showWaterBill']);
 
 Route::get('home/chart/day',['as' => 'home.graphs.day', 'uses' => 'ClientReportsController@showDayConsumptionGraph']);
-Route::get('home/chart/hour',['as' => 'home.graphs.hour', 'uses' => 'ClientReportsController@showHourConsumptionGraph']);
+Route::get('home/chart/month',['as' => 'home.graphs.month', 'uses' => 'ClientReportsController@showMonthConsumptionGraph']);
 
 /*User Profile*/
 Route::get('profile/edit', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);

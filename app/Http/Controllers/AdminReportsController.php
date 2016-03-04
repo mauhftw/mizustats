@@ -147,7 +147,6 @@ class AdminReportsController extends Controller {
                         ->get();
 
 //Google charts JSON's format
-
         $cols = [
           ["label"=>"Departamentos","type" => "string"],
           ["label"=>"Consumo","type" => "number"]

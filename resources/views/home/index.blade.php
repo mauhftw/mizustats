@@ -27,8 +27,8 @@
                     </table>
                 </div>
                   <div class="row">
-                    <div class="col-md-6" id="consumption_month_chart"></div>
                     <div class="col-md-6" id="consumption_day_chart"></div>
+                    <div class="col-md-6" id="consumption_month_chart"></div>
                   </div>
             </div>
         </div>
@@ -59,3 +59,62 @@
 });
 </script>
 @stop
+
+<!--Load the AJAX API-->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+
+// Load the Visualization API and the piechart package.
+google.charts.load('current', {'packages':['corechart']});
+// Set a callback to run when the Google Visualization API is loaded.
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+    dayChart();
+    monthChart();
+  }
+
+function dayChart() {
+
+    var jsonData = $.ajax({
+    url: "home/chart/day",
+    dataType: "json",
+    async: false
+    }).responseText;
+
+   // Create our data table out of JSON data loaded from server.
+   var data = new google.visualization.DataTable(jsonData);
+   var options = {
+   title: 'Consumo de la semana',
+   hAxis: {title: 'Litros'},
+   width:600,
+   height:400
+   };
+  // Instantiate and draw our chart, passing in some options.
+
+   var chart = new google.visualization.BarChart(document.getElementById('consumption_day_chart'));
+   chart.draw(data, options);
+}
+
+function monthChart() {
+
+  var jsonData = $.ajax({
+  url: "home/chart/month",
+  dataType: "json",
+  async: false
+  }).responseText;
+
+ // Create our data table out of JSON data loaded from server.
+ var data = new google.visualization.DataTable(jsonData);
+ var options = {
+ title: 'Consumo respecto el mes anterior',
+ hAxis: {title: 'Litros'},
+ width:600,
+ height:400
+ };
+// Instantiate and draw our chart, passing in some options.
+
+ var chart = new google.visualization.BarChart(document.getElementById('consumption_month_chart'));
+ chart.draw(data, options);
+}
+</script>
