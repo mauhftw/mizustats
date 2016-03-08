@@ -5,7 +5,8 @@
       <b>Email:</b>{{{$data['email']}}}
       <b>Password:</b>{{{$data['password']}}}
 
-<p> Por favor, haga click en el link para completar su registro:</p> <a href="{{ $link = url('password/reset', $token).'?email='.urlencode($user->getEmailForPasswordReset()) }}"> {{ $link }} </a>
+<!-- REVISAR, recordar de agregar el link de 'reset password (ver vista reset password)' -->
+
 
 <p>Nunca revele su usuario o password a nadie!</p>
 </body>

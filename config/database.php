@@ -64,6 +64,18 @@ return [
             'strict'    => false,
         ],
 
+        'mqtt' => [
+            'driver'    => 'mysql',
+            'host'      => env('DB_HOST_MQTT', 'localhost'),
+            'database'  => env('DB_DATABASE_MQTT', 'forge'),
+            'username'  => env('DB_USERNAME_MQTT', 'forge'),
+            'password'  => env('DB_PASSWORD_MQTT', ''),
+            'charset'   => 'utf8',
+            'collation' => 'utf8_unicode_ci',
+            'prefix'    => '',
+            'strict'    => false,
+        ],
+
         'mongodb' => [
             'driver'   => 'mongodb',
             'host'     => env('DB_MONGO_HOST', 'localhost'),

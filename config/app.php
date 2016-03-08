@@ -160,6 +160,8 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
         Jenssegers\Mongodb\MongodbServiceProvider::class,
+        /*Helpers*/
+        App\Providers\HelperProvider::class,
 
 
 

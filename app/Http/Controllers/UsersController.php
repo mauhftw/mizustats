@@ -9,11 +9,15 @@ use App\Http\Controllers\Controller;
 use App\Models\City;
 use App\Models\State;
 use App\Models\Role;
+use App\Models\Acl;
+use app\Models\UserMqtt;
 use App\Http\Requests\UserRequest;
+use App\Helpers\MqttUserHelper;
 use App\Models\User;
 use Hash;
 use Datatables;
 use Mail;
+
 
 class UsersController extends Controller {
 
@@ -23,7 +27,6 @@ class UsersController extends Controller {
       $role = Role::where('name','admin')->first();
       $this->authorize('auth',$role);
   }
-
 
     public static function index() {
       return view('users.index');
@@ -86,8 +89,18 @@ class UsersController extends Controller {
               $user->password = Hash::make($password);
               $user->token = $token;
               $user->active = 0;
+
+
               /*hay que guardar los datos de login en la bases de datos mqtt*/
-              
+              $aux = [
+                  'token' => $token,
+                  'dni' => $request->input('dni'),
+                  'city' => $request->input('city_id'),
+              ];
+
+              $mqtt = MqttUserHelper::addUser($aux);
+              $acl = MqttUserHelper::addAcl($aux);
+
 
               /*Implementar colas para el tema de mails*/
               $data = [
@@ -96,7 +109,7 @@ class UsersController extends Controller {
                 'password' => $user->password,
               ];
 
-              Mail::send('emails.register', ['data' => $data], function ($m) use ($data) {
+              Mail::send('auth.emails.register', ['data' => $data], function ($m) use ($data) {
                   $m->from('admin@mizustats.com', 'mizu-stats');
                   $m->to($data['email'], $data['password'])->subject('Datos de usuario');
                 });
@@ -113,9 +126,7 @@ class UsersController extends Controller {
           return redirect()->route('users.index')->with('success', trans('El usuario se ha creado correctamente'));
     }
 
-    public static function show($id) {
 
-    }
     public static function edit($id) {
 
       $user = User::find($id);
@@ -152,8 +163,7 @@ class UsersController extends Controller {
           //$token = str_random(32);
           $user->role_id = $client->id;
           //$user->active = 0;
-          /*hay que guardar los datos de login en la bases de datos mqtt*/
-          /*Implementar colas para el tema de mails*/
+
       }
 
       if (!$request->has('active')){      //check checkbox :D
