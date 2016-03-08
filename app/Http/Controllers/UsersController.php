@@ -13,6 +13,7 @@ use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Hash;
 use Datatables;
+use Mail;
 
 class UsersController extends Controller {
 
@@ -73,20 +74,32 @@ class UsersController extends Controller {
           $role = Role::select('name','id')->where('id','=',$request->input('role_id'))->first();
           $user = new User;
 
-          if ($role->name == 'Admin') {              //Admin
+          if ($role->name == 'admin') {              //Admin
               $user->password = Hash::make($request->input('password'));
               $user->active = 1;
               $user->role_id = $role->id;
           } else {                                   //Client
-              $client = Role::select('id')->where('name','=','User')->first();
-              $token = str_random(32);      //make hash
+              $client = Role::select('id')->where('name','=','user')->first();
+              $token = str_random(32);              //make hash
               $password = str_random(16);
               $user->role_id = $client->id;
               $user->password = Hash::make($password);
               $user->token = $token;
               $user->active = 0;
               /*hay que guardar los datos de login en la bases de datos mqtt*/
+              
+
               /*Implementar colas para el tema de mails*/
+              $data = [
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'password' => $user->password,
+              ];
+
+              Mail::send('emails.register', ['data' => $data], function ($m) use ($data) {
+                  $m->from('admin@mizustats.com', 'mizu-stats');
+                  $m->to($data['email'], $data['password'])->subject('Datos de usuario');
+                });
           }
 
           $user->name = $request->input('name');

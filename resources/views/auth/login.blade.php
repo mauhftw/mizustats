@@ -59,7 +59,7 @@
       </div>
       {!! Form::close() !!}
 
-    <a href="#">Olvide mi password!</a><br>
+    <a href="/password/reset">Olvide mi password!</a><br>
   </div>
   <!-- /.login-box-body -->
 </div>

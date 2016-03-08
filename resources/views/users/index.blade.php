@@ -12,7 +12,7 @@
         </header>
         <div class="panel-body">
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-12">
                     <div class="mb-md">
                         <a class="btn btn-primary" href="{{{ url('users/create') }}}">Agregar  <i class="fa fa-plus"></i></a>
                     </div>

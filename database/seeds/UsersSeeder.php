@@ -31,7 +31,7 @@ class UsersSeeder extends Seeder{
             'lastname' => 'User',
             'email' => 'user@user.com',
             'password' => bcrypt('123456'),
-            'dni' => '34785999',
+            'dni' => '34785998',
             'state_id' => '12',
             'city_id' => '228',
             'role_id' => $role->id,

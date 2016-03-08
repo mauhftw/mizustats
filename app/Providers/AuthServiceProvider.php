@@ -26,7 +26,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies($gate);
 
-        $gate->define('auth', function ($user, $role) {
+      $gate->define('auth', function ($user, $role) {
             return $user->role_id === $role->id;
         });
 
