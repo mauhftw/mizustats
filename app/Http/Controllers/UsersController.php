@@ -48,6 +48,14 @@ class UsersController extends Controller {
 
     }
 
+    public static function getCity($id) {
+
+        $cities = City::where('state_id','=',$id)->get(['name','id']);
+        //echo ($cities);
+        return response()->json($cities);
+
+    }
+
     public static function create() {
 
       $states = State::lists('name','id');

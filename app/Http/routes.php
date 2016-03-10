@@ -50,9 +50,10 @@ Route::get('dashboard/chart/day',['as' => 'dashboard.graph.days', 'uses' => 'Adm
 /*Users*/
 Route::get('users', ['as' => 'users.index', 'uses' => 'UsersController@index']);
 Route::get('users/data', ['as' => 'users.getDatatable', 'uses' => 'UsersController@getDatatable']);
+Route::get('users/city/{id}', ['as' => 'users.getCity', 'uses' => 'UsersController@getCity']);
 Route::get('users/create', ['as' => 'users.create', 'uses' => 'UsersController@create']);
 Route::post('users', ['as' => 'users.store', 'uses' => 'UsersController@store']);
-Route::get('users/{id}', ['as' => 'users.show', 'uses' => 'UsersController@show']);
+//Route::get('users/{id}', ['as' => 'users.show', 'uses' => 'UsersController@show']);
 Route::get('users/{id}/edit', ['as' => 'users.edit', 'uses' => 'UsersController@edit']);
 Route::put('users/{id}', ['as' => 'users.update', 'uses' => 'UsersController@update']);
 Route::delete('users/{id}', ['as' => 'users.delete', 'uses' => 'UsersController@delete']);

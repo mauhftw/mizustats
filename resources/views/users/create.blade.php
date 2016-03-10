@@ -62,18 +62,19 @@
                 <label for="state" class="col-sm-2 control-label">Provincia</label>
 
                 <div class="col-sm-3">
-                {!! Form::select('state_id', $states, 'null', ['class' => 'form-control', 'required']) !!}
+                {!! Form::select('state_id', $states, 'null', ['class' => 'form-control', 'required', 'id' => 'state']) !!}
                 </div>
               </div>
 
               <div class="form-group">
                 <label for="city" class="col-sm-2 control-label">Ciudad</label>
 
-                <div class="col-sm-3">  <!-- AJAX -->
-                <!--<select class="form-control">
-                  <option value ="228">Godoy Cruz</option>
-                </select>-->
-                {!! Form::select('city_id',['228' => 'Godoy Cruz'], 'Godoy Cruz', ['class' => 'form-control', 'required']) !!}
+                <div class="col-sm-3">  <!-- AJAX class form-control en el select-->
+                  <select name="state" class="form-control" id="city">
+                    <option selected ="selected">Seleccione Provincia</option>
+                </select>
+                <!--<img src="ajax-loader.gif" id="loding1"></img>-->
+                <!--{!! Form::select('city_id',['228' => 'Godoy Cruz'], 'Godoy Cruz', ['class' => 'form-control', 'required']) !!}-->
 
                 </div>
               </div>
@@ -89,4 +90,36 @@
           </div>
 @stop
 @section('scripts')
+<script type="text/javascript">
+$(document).ready(function()
+{
+	//$("#loding1").hide();
+	$("#state").change(function()
+	{
+		//$("#loding1").show();
+		var id=$(this).val();
+		var dataString = 'id='+ id;
+    //console.log(id);
+		//$("#state").find('option').remove();
+		$("#city").find('option').remove();
+		$.ajax
+		({
+			type: "GET",
+			url: 'city/'+id,
+			data: id,
+			cache: false,
+			success: function(html){
+        console.log(html);
+			  //$("#loding1").hide();
+				//$("#city").html(html);
+        //<option value="1">Buenos Aires</option>
+        for (var i = 0; i < html.length; i++) {
+          console.log(html[i].name);
+            $('#city').append("<option value='"+html[i].id+"'>"+html[i].name+"</option>")
+}
+			}
+		});
+	});
+});
+</script>
 @stop
