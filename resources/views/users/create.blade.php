@@ -15,7 +15,7 @@
                     <option>Administrador</option>
                     <option>Cliente</option>
                   </select> -->
-                  {!! Form::select('role_id', $roles, 'null', ['class' => 'form-control', 'required']) !!}
+                  {!! Form::select('role_id', $roles, 'null', ['class' => 'form-control', 'required', 'id' => 'role']) !!}
 
                   </div>
                 </div>
@@ -42,7 +42,7 @@
                 </div>
               </div>
 
-              <div class="form-group">
+              <div class="form-group" id='fieldwrapper'>
                 <label for="password" class="col-sm-2 control-label">Password</label>
 
               <div class="col-sm-3">
@@ -62,7 +62,7 @@
                 <label for="state" class="col-sm-2 control-label">Provincia</label>
 
                 <div class="col-sm-3">
-                {!! Form::select('state_id', $states, 'null', ['class' => 'form-control', 'required', 'id' => 'state']) !!}
+                {!! Form::select('state_id', $states, 'null', ['class' => 'form-control', 'required', 'id' => 'state', 'placeholder' => 'Seleccione provincia']) !!}
                 </div>
               </div>
 
@@ -71,10 +71,9 @@
 
                 <div class="col-sm-3">  <!-- AJAX class form-control en el select-->
                   <select name="city_id" class="form-control" id="city">
-                    <option selected ="selected">Seleccione Provincia</option>
+                    <option selected ="selected">Seleccione Ciudad</option>
                 </select>
                 <!--<img src="ajax-loader.gif" id="loding1"></img>-->
-                <!--{!! Form::select('city_id',['228' => 'Godoy Cruz'], 'Godoy Cruz', ['class' => 'form-control', 'required']) !!}-->
 
                 </div>
               </div>
@@ -91,16 +90,12 @@
 @stop
 @section('scripts')
 <script type="text/javascript">
-$(document).ready(function()
-{
-	//$("#loding1").hide();
-	$("#state").change(function()
-	{
-		//$("#loding1").show();
+$(document).ready(function() {
+	$("#state").change(function() {
 		var id=$(this).val();
-		var dataString = 'id='+ id;
-    //console.log(id);
-		//$("#state").find('option').remove();
+    if (id == "") {             //villa xd
+      id.preventDefault();
+    }
 		$("#city").find('option').remove();
 		$.ajax
 		({
@@ -109,17 +104,24 @@ $(document).ready(function()
 			data: id,
 			cache: false,
 			success: function(html){
-        //console.log(html);
-			  //$("#loding1").hide();
-				//$("#city").html(html);
-        //<option value="1">Buenos Aires</option>
         for (var i = 0; i < html.length; i++) {
-          //console.log(html[i].name);
             $('#city').append("<option value='"+html[i].id+"'>"+html[i].name+"</option>")
-}
+          }
 			}
 		});
 	});
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function() {      //que villa jajaja
+  $("#role").change(function() {
+    if($("#role").val() == "1") {
+        $("#fieldwrapper").show();
+    }
+    else {
+        $("#fieldwrapper").hide();
+      }
+  });
 });
 </script>
 @stop

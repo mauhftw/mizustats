@@ -15,7 +15,7 @@
                     <option>Administrador</option>
                     <option>Cliente</option>
                   </select>-->
-                  {!! Form::select('role_id', $roles, old('role_id'), ['class' => 'form-control', 'required']) !!}
+                  {!! Form::select('role_id', $roles, old('role_id'), ['class' => 'form-control', 'required', 'id' => 'role']) !!}
                   </div>
                 </div>
 
@@ -41,7 +41,7 @@
                 </div>
               </div>
 
-              <div class="form-group">
+              <div class="form-group" id='fieldwrapper'>
                 <label for="password" class="col-sm-2 control-label">Password</label>
 
               <div class="col-sm-3">
@@ -61,15 +61,17 @@
                 <label for="state" class="col-sm-2 control-label">Provincia</label>
 
                 <div class="col-sm-3">
-                  {!! Form::select('state_id', $states, old('state_id'), ['class' => 'form-control', 'required']) !!}
+                {!! Form::select('state_id', $states, 'null', ['class' => 'form-control', 'required', 'id' => 'state', 'placeholder' => 'Seleccione provincia']) !!}
                 </div>
               </div>
 
               <div class="form-group">
                 <label for="city" class="col-sm-2 control-label">Ciudad</label>
 
-                <div class="col-sm-3">
-                  {!! Form::select('city_id',['228' => 'Godoy Cruz'], 'Godoy Cruz', ['class' => 'form-control', 'required']) !!}
+                <div class="col-sm-3">  <!-- AJAX class form-control en el select-->
+                  <select name="city_id" class="form-control" id="city">
+                    <option selected ="selected">Seleccione Ciudad</option>
+                </select>
                 </div>
               </div>
 
@@ -91,4 +93,39 @@
           </div>
 @stop
 @section('scripts')
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#state").change(function() {
+		var id=$(this).val();
+    if (id == "") {             //villa xd
+      id.preventDefault();
+    }
+		$("#city").find('option').remove();
+		$.ajax
+		({
+			type: "GET",
+			url: '/users/city/'+id,
+			data: id,
+			cache: false,
+			success: function(html){
+        for (var i = 0; i < html.length; i++) {
+            $('#city').append("<option value='"+html[i].id+"'>"+html[i].name+"</option>")
+          }
+			}
+		});
+	});
+});
+</script>
+<script type="text/javascript">
+$(document).ready(function() {      //que villa jajaja
+  $("#role").change(function() {
+    if($("#role").val() == "1") {
+        $("#fieldwrapper").show();
+    }
+    else {
+        $("#fieldwrapper").hide();
+      }
+  });
+});
+</script>
 @stop
