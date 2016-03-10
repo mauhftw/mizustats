@@ -70,7 +70,7 @@
                 <label for="city" class="col-sm-2 control-label">Ciudad</label>
 
                 <div class="col-sm-3">  <!-- AJAX class form-control en el select-->
-                  <select name="state" class="form-control" id="city">
+                  <select name="city_id" class="form-control" id="city">
                     <option selected ="selected">Seleccione Provincia</option>
                 </select>
                 <!--<img src="ajax-loader.gif" id="loding1"></img>-->
@@ -109,12 +109,12 @@ $(document).ready(function()
 			data: id,
 			cache: false,
 			success: function(html){
-        console.log(html);
+        //console.log(html);
 			  //$("#loding1").hide();
 				//$("#city").html(html);
         //<option value="1">Buenos Aires</option>
         for (var i = 0; i < html.length; i++) {
-          console.log(html[i].name);
+          //console.log(html[i].name);
             $('#city').append("<option value='"+html[i].id+"'>"+html[i].name+"</option>")
 }
 			}
