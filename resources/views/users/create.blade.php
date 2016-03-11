@@ -46,7 +46,7 @@
                 <label for="password" class="col-sm-2 control-label">Password</label>
 
               <div class="col-sm-3">
-                {!! Form::password('password', ['class'=>'form-control', 'minlength'=>'6', 'maxlength'=>'128', 'required']) !!}
+                {!! Form::password('password', ['class'=>'form-control', 'minlength'=>'6', 'maxlength'=>'128', 'required', 'id' => 'pass']) !!}
               </div>
             </div>
 
@@ -119,6 +119,7 @@ $(document).ready(function() {      //que villa jajaja
         $("#fieldwrapper").show();
     }
     else {
+        $("#pass").attr("value","12345678");    //hack super villa
         $("#fieldwrapper").hide();
       }
   });

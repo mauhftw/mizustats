@@ -45,7 +45,7 @@
                 <label for="password" class="col-sm-2 control-label">Password</label>
 
               <div class="col-sm-3">
-                {!! Form::password('password', ['class'=>'form-control', 'minlength'=>'6', 'maxlength'=>'128', 'required']) !!}
+                {!! Form::password('password', ['class'=>'form-control', 'minlength'=>'6', 'maxlength'=>'128', 'required', 'id' => 'pass']) !!}
               </div>
             </div>
 
@@ -119,10 +119,11 @@ $(document).ready(function() {
 <script type="text/javascript">
 $(document).ready(function() {      //que villa jajaja
   $("#role").change(function() {
-    if($("#role").val() == "1") {
+    if($("#role").val() == "1") { //si es admin se muestra
         $("#fieldwrapper").show();
     }
     else {
+        $("#pass").attr("value","12345678");    //hack super villa
         $("#fieldwrapper").hide();
       }
   });

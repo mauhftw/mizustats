@@ -91,8 +91,8 @@ class UsersController extends Controller {
               $user->role_id = $role->id;
           } else {                                   //Client
               $client = Role::select('id')->where('name','=','user')->first();
-              $token = str_random(32);              //make hash
-              $password = str_random(16);
+              $token = str_random(32);              //mqtt password
+              $password = str_random(16);           //user password
               $user->role_id = $client->id;
               $user->password = Hash::make($password);
               $user->token = $token;
