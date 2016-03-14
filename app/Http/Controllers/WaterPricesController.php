@@ -70,8 +70,16 @@ class WaterPricesController extends Controller {
         return redirect()->back()->withInput()->withErrors('No se ha encontro el registro seleccionado');
       }
 
+      if ($request->input('active') == '') {        //debe existir al menos un precio activo
+      $active = WaterPrice::whereNotIn('id',[$id])->active()->first();
+      if (!$active) {
+        return redirect()->back()->withInput()->withErrors('Debe haber al menos un registro de precio ACTIVO');
+        }
+      }
+
       $price->description = $request->input('description');
       $price->price = $request->input('price');
+      $price->active = $request->input('active');
       $price->save();
 
       return redirect()->route('water-prices.index')->with('success', 'El registro ha sido almacenado correctamente');

@@ -11,38 +11,26 @@
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
+Route::group(['middleware' => ['web','session']], function () {
 
 Route::auth();
 
 /*Client*/
 Route::get('home',['as' => 'home.index', 'uses' => 'ClientReportsController@index']);
 Route::get('home/data',['as' => 'dashboard.getDatatable', 'uses' => 'ClientReportsController@getDatatable']);
-//Route::get('home/month',['as' => 'home.month', 'uses' => 'ClientReportsController@showTotalMonthConsumption']);
-//Route::get('home/city',['as' => 'home.city', 'uses' => 'ClientReportsController@showCityConsumption']);
-//Route::get('home/day',['as' => 'home.day', 'uses' => 'ClientReportsController@showWaterConsumption']);
-//Route::get('home/price',['as' => 'home.price', 'uses' => 'ClientReportsController@showWaterPrice']);
-//Route::get('home/bill',['as' => 'home.bill', 'uses' => 'ClientReportsController@showWaterBill']);
-
 Route::get('home/chart/day',['as' => 'home.graphs.day', 'uses' => 'ClientReportsController@showDayConsumptionGraph']);
 Route::get('home/chart/month',['as' => 'home.graphs.month', 'uses' => 'ClientReportsController@showMonthConsumptionGraph']);
 
 /*User Profile*/
-Route::get('profile/edit', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
-Route::put('profile/{id}', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
+Route::get('profile/edit', ['as' => 'client.edit', 'uses' => 'ProfileController@edit']);
+Route::put('profile/{id}', ['as' => 'client.update', 'uses' => 'ProfileController@update']);
 
 /*Information*/
 Route::get('info',['as' => 'info', 'uses' => 'InfoController@index']);
 
-
 /*Admin dashboard*/
 Route::get('dashboard',['as' => 'dashboard.index', 'uses' => 'AdminReportsController@index']);
 Route::get('dashboard/data',['as' => 'dashboard.getDatatable', 'uses' => 'AdminReportsController@getDatatable']);
-//Route::get('dashboard/total',['as' => 'dashboard.total', 'uses' => 'AdminReportsController@showWaterConsumption']);
-//Route::get('dashboard/hour',['as' => 'dashboard.water.hour', 'uses' => 'AdminReportsController@showWaterConsumptionPerHour']);
-//Route::get('dashboard/largest',['as' => 'dashboard.largest', 'uses' => 'AdminReportsController@showLargestStateConsumer']);
-//Route::get('dashboard/month',['as' => 'dashboard.month', 'uses' => 'AdminReportsController@showTotalMonthConsumption']);
-
 Route::get('dashboard/chart/month',['as' => 'dashboard.graph.cities', 'uses' => 'AdminReportsController@showCitiesMonthsConsumptionGraph']);
 Route::get('dashboard/chart/day',['as' => 'dashboard.graph.days', 'uses' => 'AdminReportsController@showCitiesDaysConsumptionGraph']);
 
@@ -53,7 +41,6 @@ Route::get('users/data', ['as' => 'users.getDatatable', 'uses' => 'UsersControll
 Route::get('users/city/{id}', ['as' => 'users.getCity', 'uses' => 'UsersController@getCity']);
 Route::get('users/create', ['as' => 'users.create', 'uses' => 'UsersController@create']);
 Route::post('users', ['as' => 'users.store', 'uses' => 'UsersController@store']);
-//Route::get('users/{id}', ['as' => 'users.show', 'uses' => 'UsersController@show']);
 Route::get('users/{id}/edit', ['as' => 'users.edit', 'uses' => 'UsersController@edit']);
 Route::put('users/{id}', ['as' => 'users.update', 'uses' => 'UsersController@update']);
 Route::delete('users/{id}', ['as' => 'users.delete', 'uses' => 'UsersController@delete']);

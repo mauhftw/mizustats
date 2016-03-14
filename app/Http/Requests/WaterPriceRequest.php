@@ -36,10 +36,10 @@ class WaterPriceRequest extends Request
 
       } else if ($http_method == 'PUT') {
 
-          $price = WaterPrice::select('id')->where('price','=',$this->price)->first();
+          //$price = WaterPrice::select('id')->where('price','=',$this->price)->first();
           return [
             'description' => 'alpha_dash|max:32',
-            'price' => 'required|numeric|unique:water_prices,price,'.$price->id,
+            'price' => 'required|numeric|unique:water_prices,price',
             'active' => 'boolean',
           ];
 

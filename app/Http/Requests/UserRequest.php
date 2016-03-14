@@ -40,8 +40,8 @@ class UserRequest extends Request
 
         } else if ($http_method == 'PUT') {
 
-            $user = User::select('id')->where('email','=',$this->email)->first();
-            //$user = User::find($id);
+          $id = Session::get('user_id');
+          $user = User::where('id','=',$id)->first();
             return [
               'name' => 'required|between:2,32|alpha',
               'lastname' => 'required|between:2,32|alpha',
