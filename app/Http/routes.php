@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['middleware' => ['web','session']], function () {
+Route::group(['middleware' => ['web']], function () {
 
 Route::auth();
 

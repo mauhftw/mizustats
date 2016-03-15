@@ -18,6 +18,7 @@ class ProfileController extends Controller {
   {
     $role = Role::where('name','user')->first();
     $this->middleware('auth');
+    $this->middleware('session');
     $this->authorize('auth',$role);
   }
 
