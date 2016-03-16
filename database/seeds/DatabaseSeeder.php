@@ -21,6 +21,8 @@ class DatabaseSeeder extends Seeder
       $this->call(UsersSeeder::class);
       $this->call(WaterPricesSeeder::class);
       $this->call(WaterRegistersSeeder::class);
+      $this->call(MqttUsersSeeder::class);
+      $this->call(AclsSeeder::class);
 
       Model::reguard();
     }
