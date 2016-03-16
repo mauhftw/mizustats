@@ -15,17 +15,20 @@ class WaterRegistersSeeder extends Seeder
     public function run() {
 
       $faker = Faker::create();
-      $city = ['Maipu','Godoycruz','Ciudad','Las heras', 'San rafael', 'Guaymallen', 'San martin'];
+      $aux = [];
+      $data = [];
+      $city = ['Maipu','Godoy Cruz','Ciudad','Las heras', 'San rafael', 'Guaymallen', 'San martin'];
       foreach(range(1,10800) as $index) {
-          WaterRegister::create([
-              'user_id' => $faker->numberBetween($min = 1, $max = 200),
-              'value' => $faker->numberBetween($min = 70, $max =350),
-              'city' => $city[array_rand($city,1)],
-              'state' => 'Mendoza',
-              'date' => $faker->dateTimeBetween($startDate = '-10 days', $endDate = 'now'),
-              'time' => $faker->time($format = 'H:i:s'),
-            ]);
+            $aux['user_id'] = $faker->numberBetween($min = 1, $max = 2);
+            $aux['value'] = $faker->numberBetween($min = 0, $max =350);
+            $aux['city'] = $city[array_rand($city,1)];
+            $aux['state'] = 'Mendoza';
+            $aux['date'] = $faker->dateTimeBetween($startDate = '-45 days', $endDate = '+15 days');
+            $aux['time'] = $faker->time($format = 'H:i:s');
+            $data[] = $aux;
       }
+
+      DB::table('water_registers')->insert($data);
 
     }
 }

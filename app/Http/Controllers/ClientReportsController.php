@@ -3,16 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\WaterRegister;
 use App\Models\WaterPrice;
 use App\Models\Role;
+use App\Models\User;
 use App\Models\City;
 use DB;
 use Datatables;
 use stdClass;
+use Session;
 
 
 class ClientReportsController extends Controller {
@@ -22,6 +23,7 @@ class ClientReportsController extends Controller {
     $role = Role::where('name','user')->first();
     $this->middleware('auth');
     $this->authorize('auth',$role);
+    $this->middleware('session');
   }
 
   public static function index() {
@@ -30,19 +32,24 @@ class ClientReportsController extends Controller {
 
   public static function getDatatable() {
 
+        $id = Session::get('user_id');
         $first_day = date("Y-m-01");
         $last_day = date("Y-m-t");
         $today = date("Y-m-d");
 
         /* MONTH user consumption*/
-        $monthUserConsumption = WaterRegister::where('state','=','Mendoza') //reemplazar por session(user_id)
-                              ->where('user_id','=','1')  //reemplazar por session(user_id)
+        $monthUserConsumption = WaterRegister::where('state','=','Mendoza') //TODO QUITAR PRODUCCION
+                              ->where('user_id','=',$id)
                               ->whereBetween('date',[$first_day,$last_day])
                               ->sum('value');
 
         /* MONTH city consumption total and average lts/hour*/
+        $user = User::select(['city_id'])->with('state','city')
+                                ->where('id', $id)
+                                ->first();
+
         $cityConsumption = WaterRegister::select(DB::raw('sum(value) as total, avg(value) as avg'))
-                              ->where('city','=','Godoycruz') //reemplazar por city
+                              ->where('city','=', $user->city->name)
                               ->whereBetween('date',[$first_day,$last_day])
                               ->groupBy('city')
                               ->get();
@@ -52,8 +59,9 @@ class ClientReportsController extends Controller {
 
         /*current consumption and liters per hour (DAY)*/
         $consumption = WaterRegister::where('date', '=', $today)
-                          ->where('user_id', '=', '1')  //traer user id de la session
+                          ->where('user_id', '=', $id)
                           ->sum('value');
+
         $consumptionPerHour = $consumption/60;
 
         /*water price*/
@@ -62,7 +70,7 @@ class ClientReportsController extends Controller {
         /*water bill*/
         $price = $waterPrice[0]->price;
         $liters = WaterRegister::where('date', '=', $today)
-                          ->where('user_id', '=', '1')  //traer user id de la session
+                          ->where('user_id', '=', $id)
                           ->sum('value');
 
         $bill = $liters*$price;
@@ -83,81 +91,17 @@ class ClientReportsController extends Controller {
 
   }
 
-  /*public static function showCityConsumption() { //total y promedio
-
-      $first_day = date("Y-m-01");
-      $last_day = date("Y-m-t");
-
-      $city = User::with('city')->get();
-            probar first();
-
-
-      $cityConsumption = WaterRegister::select(DB::raw('count(id) as total, avg(value) as avg'))
-                            ->where('city','=','Godoycruz') //reemplazar por city
-                            ->whereBetween('date',[$first_day,$last_day])
-                            ->groupBy('city')
-                            ->get();
-
-      //divido por 60 el avg y tengo litros por hora
-  }
-
-  public static function showCityAverageConsumption() {
-
-      $first_day = date("Y-m-01");
-      $last_day = date("Y-m-t");
-
-      /*$city = User::with('city')->get();
-            probar first();
-      */
-      /*city average consumption
-      $total = WaterRegister::where('city','=','Godoycruz') //reemplazar por city
-                            ->whereBetween('date',[$first_day,$last_day])
-                            ->sum('value');
-      echo $total;
-  }
-
-  public static function showWaterConsumption() {  //total, por hora y precio a pagar
-      $today = date("Y-m-d");   //variable protegida?
-      $consumption = WaterRegister::where('date', '=', $today)
-                        ->where('user_id', '=', '1')  //traer user id de la session
-                        ->sum('value');
-      echo $consumption;
-      //divido el total por hora y obtengo el lts/hora
-
-  }
-
-  public static function showWaterPrice() {
-      $price = WaterPrice::select('price')->active()->get();
-      echo $price;
-  }
-
-  public static function showWaterBill() {
-
-      $price = WaterPrice::select('price')->active()->get();
-      //echo $price;
-      $price = $price[0]->price;
-      //echo $price;
-
-      $today = date("Y-m-d");   //variable protegida?
-      $consumption = WaterRegister::where('date', '=', $today)
-                        ->where('user_id', '=', '1')  //traer user id de la session
-                        ->sum('value');
-
-      echo $consumption*$price;
-
-  } */
-
   public static function showDayConsumptionGraph() { //consumo de los dias de la semana
+        $id = Session::get('user_id');
         $first = date("Y-m-d");
         $last = date("Y-m-d",strtotime('-6 day'));
-        //echo $last;
+
         $consumption = DB::table('water_registers')->select('date',DB::raw('sum(value) as total'))
                         ->whereBetween('date',[$last,$first])
-                        ->where('state','=','Mendoza') //buscar su zona
-                        ->where('user_id', '=', '1')
-                        ->groupBy('date') //ordeno de mayor a menor
+                        ->where('state','=','Mendoza') //TODO QUITAR EN PRODUCCION
+                        ->where('user_id', '=', $id)
+                        ->groupBy('date')
                         ->get();
-        //dd($consumption);
 
         //Google charts JSON's format
                 $cols = [
@@ -185,7 +129,7 @@ class ClientReportsController extends Controller {
               return response()->json($cell);
   }
   public static function showMonthConsumptionGraph() { //consumo por hora
-
+        $id = Session::get('user_id');
         $first_day = date("Y-m-01");
         $last_day = date("Y-m-t");
         $previous_first_day = date("Y-m-01", strtotime('-1 month'));
@@ -193,13 +137,13 @@ class ClientReportsController extends Controller {
 
         /*consumo del mes actual*/
         $currentMonthConsumption = WaterRegister::where('state','=','Mendoza') //reemplazar por session(user_id)
-                              ->where('user_id','=','1')  //reemplazar por session(user_id)
+                              ->where('user_id','=',$id)
                               ->whereBetween('date',[$first_day,$last_day])
                               ->sum('value');
 
         /*consumo del mes anterior*/
         $previousMonth = WaterRegister::where('state','=','Mendoza') //reemplazar por session(user_id)
-                              ->where('user_id','=','1')  //reemplazar por session(user_id)
+                              ->where('user_id','=',$id)
                               ->whereBetween('date',[$previous_first_day,$previous_last_day])
                               ->sum('value');
 
