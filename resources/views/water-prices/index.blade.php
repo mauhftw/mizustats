@@ -3,19 +3,13 @@
 @section('page-description','Listado de precios')
 @section('box-name','Listado de precios')
 @section('content')
-<div class="col-md-12">
-    <section class="panel">
-        <header class="panel-heading">
-            <div class="panel-actions">
-                <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-            </div>
-        </header>
-        <div class="panel-body">
+
             <div class="row">
                 <div class="col-sm-6">
                     <div class="mb-md">
                         <a class="btn btn-primary" href="{{{ url('water-prices/create') }}}">Agregar  <i class="fa fa-plus"></i></a>
                     </div>
+                    <br>
                 </div>
                 <div class="col-md-12">
                     <table class="table table-bordered table-striped" id="datatable" data-url="{{{ url('water-prices/data') }}}">
@@ -36,7 +30,6 @@
             </div>
         </div>
     </section>
-</div>
 @stop
 @section('scripts')
 <script type="text/javascript">

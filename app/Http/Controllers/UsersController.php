@@ -131,7 +131,7 @@ class UsersController extends Controller {
           $user->city_id = $request->input('city_id');
           $user->save();
 
-          return redirect()->route('users.index')->with('success', trans('El usuario se ha creado correctamente'));
+          return redirect()->route('users.index')->with('success', trans('El usuario se ha creado correctamente!'));
     }
 
 

@@ -6,15 +6,11 @@
 
             <!-- form start -->
 {!! Form::open(['route'=>'users.store', 'class'=>'form-horizontal form-validate']) !!}
-              <div class="box-body">
+
                 <div class="form-group">
                   <label for="role" class="col-sm-2 control-label">Seleccione el tipo de usuario</label>
-
                   <div class="col-sm-3">
-                <!--  <select class="form-control">
-                    <option>Administrador</option>
-                    <option>Cliente</option>
-                  </select> -->
+
                   {!! Form::select('role_id', $roles, 'null', ['class' => 'form-control', 'required', 'id' => 'role']) !!}
 
                   </div>
@@ -73,12 +69,9 @@
                   <select name="city_id" class="form-control" id="city">
                     <option selected ="selected">Seleccione Ciudad</option>
                 </select>
-                <!--<img src="ajax-loader.gif" id="loding1"></img>-->
-
                 </div>
               </div>
 
-              </div>
               <!-- /.box-body -->
               <div class="box-footer">
                 <a href="{{{ url("users") }}}" class="btn btn-default">Cancelar</a>
@@ -86,7 +79,7 @@
               </div>
               <!-- /.box-footer -->
             {!! Form::close() !!}
-          </div>
+          </section>
 @stop
 @section('scripts')
 <script type="text/javascript">

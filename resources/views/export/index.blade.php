@@ -5,14 +5,14 @@
 @section('content')
 
             <!-- form start -->
-              <div class="box-body">
+
                 <div class="form-group">
                   <label for="name" class="col-sm-3 control-label">Seleccione la ubicacion del archivo a guardar</label>
                   <div class="col-sm-3">
                     <button type="button" class="btn btn-block btn-primary btn-md">Exportar</button>
                   </div>
                 </div>
-              </div>
+              </section>
               <!-- /.box-footer -->
 @stop
 @section('scripts')

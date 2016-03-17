@@ -6,7 +6,7 @@
 
             <!-- form start -->
 {!! Form::open(['route'=>'water-prices.store', 'class'=>'form-horizontal form-validate']) !!}
-              <div class="box-body">
+            
                 <div class="form-group">
                   <label for="price" class="col-sm-2 control-label">Precio</label>
                   <div class="col-sm-3">
@@ -32,7 +32,7 @@
               </div>
               <!-- /.box-footer -->
             {!! Form::close() !!}
-          </div>
+          </section>
 @stop
 @section('scripts')
 @stop

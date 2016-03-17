@@ -1,19 +1,14 @@
 @extends('template.master')
 @section('page-title','Dashboard')
 @section('page-description','Panel de reportes')
+@section('box-name','Estadisticas del dia')
 @section('content')
 
-<div class="col-md-12">
-    <section class="panel">
-        <header class="panel-heading">
-            <div class="panel-actions">
-                <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-            </div>
-        </header>
+
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-12">
-                  <h3>Estadisticas del dia</h3>
+                
                     <table class="table table-bordered table-striped" id="datatable" data-url="{{{ url('dashboard/data') }}}">
                         <thead>
                             <tr>
@@ -34,7 +29,6 @@
             </div>
         </div>
     </section>
-
 @stop
 @section('scripts')
 <script type="text/javascript">

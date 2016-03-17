@@ -3,20 +3,15 @@
 @section('page-description','Listado de usuarios')
 @section('box-name','Listado de usuarios')
 @section('content')
-<div class="col-md-12">
-    <section class="panel">
-        <header class="panel-heading">
-            <div class="panel-actions">
-                <a href="#" class="panel-action panel-action-toggle" data-panel-toggle></a>
-            </div>
-        </header>
-        <div class="panel-body">
+
             <div class="row">
                 <div class="col-sm-12">
                     <div class="mb-md">
                         <a class="btn btn-primary" href="{{{ url('users/create') }}}">Agregar  <i class="fa fa-plus"></i></a>
                     </div>
+                    <br>
                 </div>
+
                 <div class="col-md-12">
                     <table class="table table-bordered table-striped" id="datatable" data-url="{{{ url('users/data') }}}">
                         <thead>
@@ -34,7 +29,6 @@
                     </table>
                 </div>
             </div>
-        </div>
     </section>
 
 @stop
