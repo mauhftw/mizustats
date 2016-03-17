@@ -45,6 +45,7 @@
                 <div class="box-body" style="display: block;">
                   @yield('content')
                 </div>
+              </section>
 
                 <!--@include('shared.deletemodal')-->
 

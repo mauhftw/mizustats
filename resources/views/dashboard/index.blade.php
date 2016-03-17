@@ -4,11 +4,11 @@
 @section('box-name','Estadisticas del dia')
 @section('content')
 
-
+<div class="col-md-12">
         <div class="panel-body">
             <div class="row">
                 <div class="col-md-12">
-                
+
                     <table class="table table-bordered table-striped" id="datatable" data-url="{{{ url('dashboard/data') }}}">
                         <thead>
                             <tr>
@@ -28,7 +28,7 @@
                   </div>
             </div>
         </div>
-    </section>
+    </div>
 @stop
 @section('scripts')
 <script type="text/javascript">

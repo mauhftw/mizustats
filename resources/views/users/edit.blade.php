@@ -6,7 +6,7 @@
 
             <!-- form start -->
 {!! Form::model($user,['route'=>['users.update', $user->id], 'method'=>'PUT', 'class'=>'form-horizontal form-validate']) !!}
-
+<div class="col-md-12">
                 <div class="form-group">
                   <label for="role" class="col-sm-2 control-label">Seleccione el tipo de usuario</label>
 
@@ -77,6 +77,7 @@
                 {!! Form::checkbox('active', '1', old('active')) !!}
               </div>
             </div>
+
               <!-- /.box-body -->
               <div class="box-footer">
                 <a href="{{{ url("users") }}}" class="btn btn-default">Cancelar</a>
@@ -84,8 +85,7 @@
               </div>
               <!-- /.box-footer -->
             {!! Form::close() !!}
-
-</section>
+          </div>
 @stop
 @section('scripts')
 <script type="text/javascript">

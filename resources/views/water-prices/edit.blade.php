@@ -6,6 +6,7 @@
 
             <!-- form start -->
 {!! Form::model($price,['route'=>['water-prices.update', $price->id], 'method'=>'PUT', 'class'=>'form-horizontal form-validate']) !!}
+<div class="col-md-12">
   <div class="form-group">
     <label for="price" class="col-sm-2 control-label">Precio</label>
     <div class="col-sm-3">
@@ -31,7 +32,7 @@
 </div>
 <!-- /.box-footer -->
 {!! Form::close() !!}
-</section>
+</div>
 
 @stop
 @section('scripts')

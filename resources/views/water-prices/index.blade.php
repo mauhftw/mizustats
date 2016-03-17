@@ -3,7 +3,7 @@
 @section('page-description','Listado de precios')
 @section('box-name','Listado de precios')
 @section('content')
-
+<div class="col-md-12">
             <div class="row">
                 <div class="col-sm-6">
                     <div class="mb-md">
@@ -29,7 +29,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 @stop
 @section('scripts')
 <script type="text/javascript">

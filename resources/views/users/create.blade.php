@@ -6,7 +6,7 @@
 
             <!-- form start -->
 {!! Form::open(['route'=>'users.store', 'class'=>'form-horizontal form-validate']) !!}
-
+<div class="col-md-12">
                 <div class="form-group">
                   <label for="role" class="col-sm-2 control-label">Seleccione el tipo de usuario</label>
                   <div class="col-sm-3">
@@ -79,7 +79,7 @@
               </div>
               <!-- /.box-footer -->
             {!! Form::close() !!}
-          </section>
+          </div>
 @stop
 @section('scripts')
 <script type="text/javascript">

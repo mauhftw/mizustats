@@ -3,7 +3,7 @@
 @section('page-description','Listado de usuarios')
 @section('box-name','Listado de usuarios')
 @section('content')
-
+<div class="col-md-12">
             <div class="row">
                 <div class="col-sm-12">
                     <div class="mb-md">
@@ -29,7 +29,7 @@
                     </table>
                 </div>
             </div>
-    </section>
+  </div>
 
 @stop
 @section('scripts')
