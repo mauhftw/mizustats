@@ -20,10 +20,12 @@ public static function addAcl($data) {
 
 public static function addUser($data) {
 
-  $city = City::where('id','=',$data['city'])->first(['name']);
+  $city = City::with('state')->where('id','=',$data['city'])->first();
+  //echo $city->name;
+  ;
   $acl = new Acl;
   $acl->dni = $data['dni'];
-  $acl->topic = $city->name.'/water/'.$acl->dni;    //Definir Mendoza/water/dni
+  $acl->topic = $city->state->name.'/'.$city->name.'/Water/'.$acl->dni;    //Definir Mendoza/water/dni
   $acl->rw = 1;
   $acl->save();
 

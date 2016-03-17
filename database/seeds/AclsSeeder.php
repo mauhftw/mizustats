@@ -14,7 +14,7 @@ class AclsSeeder extends Seeder
     {
       $user = Acl::create([
         'dni' => '34785998',
-        'topic' => '/Mendoza/Godoy Cruz/34785998',
+        'topic' => '/Mendoza/Godoy Cruz/Water/34785998',
         'rw' => '1',
         ]);
     }

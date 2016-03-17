@@ -199,7 +199,12 @@ class UsersController extends Controller {
       if (!$user) {
           return redirect()->back()->withErrors([trans('El usuario seleccionado no existe')]);
       }
-      $tax->delete();
+
+      $acl = Acl::where('dni','=',$user->dni)->delete();
+      $mqtt = UserMqtt::where('dni', '=', $user->dni)->delete();
+      $user->delete();
+
+
       if ($request->ajax()) {
           return response()->json(['code' => 200]);
       }

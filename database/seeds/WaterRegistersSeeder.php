@@ -17,7 +17,7 @@ class WaterRegistersSeeder extends Seeder
       $faker = Faker::create();
       $aux = [];
       $data = [];
-      $city = ['Maipu','Godoy Cruz','Ciudad','Las heras', 'San rafael', 'Guaymallen', 'San martin'];
+      $city = ['Maipu','Godoy Cruz','Ciudad','Las Heras', 'San Rafael', 'Guaymallen', 'San Martin'];
       foreach(range(1,10800) as $index) {
             $aux['user_id'] = $faker->numberBetween($min = 1, $max = 2);
             $aux['value'] = $faker->numberBetween($min = 0, $max =350);

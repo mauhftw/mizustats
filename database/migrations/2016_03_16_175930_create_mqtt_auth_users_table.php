@@ -28,6 +28,6 @@ class CreateMqttAuthUsersTable extends Migration
      */
     public function down()
     {
-        Schema::connection('mqtt_auth')->drop('users');
+        Schema::connection('mqtt')->drop('users');
     }
 }
