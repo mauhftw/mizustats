@@ -91,14 +91,14 @@ class WaterPricesController extends Controller {
 
     $price = WaterPrice::find($id);
     if (!$price) {
-        return redirect()->back()->withErrors([trans('El registro seleccionado no existe')]);
+        return redirect()->back()->withErrors('El registro seleccionado no existe');
     }
     $price->delete();
     if ($request->ajax()) {
         return response()->json(['code' => 200]);
     }
     else {
-        return redirect()->route('water-prices.index')->with('success',trans('El registro se ha eliminado correctamente'));
+        return redirect()->route('water-prices.index')->with('success','El registro se ha eliminado correctamente');
     }
 
   }

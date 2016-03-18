@@ -10,7 +10,7 @@
   <div class="form-group">
     <label for="price" class="col-sm-2 control-label">Precio</label>
     <div class="col-sm-3">
-      {!! Form::text('price', old('price'), ['class'=>'form-control', 'required', 'placeholder' => '$', 'minlength'=>'1', 'maxlength'=>'32', 'autofocus', 'pattern' => '[0-9]+']) !!}
+      {!! Form::text('price', old('price'), ['class'=>'form-control', 'required', 'placeholder' => '$', 'minlength'=>'1', 'maxlength'=>'32', 'autofocus', 'pattern' => '[0-9].+']) !!}
     </div>
   </div>
   <div class="form-group">

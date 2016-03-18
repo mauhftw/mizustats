@@ -29,6 +29,9 @@
   <div class="login-logo">
     <b>mizu</b>stats
   </div>
+  <div>
+  @include('shared.notifications')
+</div>
   <!-- /.login-logo -->
   <div class="login-box-body">
     <p class="login-box-msg">Iniciar sesion</p>

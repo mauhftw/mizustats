@@ -26,7 +26,6 @@ class ClientRequest extends Request
     {
         $id = Session::get('user_id');
         $user = User::where('id','=',$id)->first();
-        //$user = User::select('id')->where('email','=',$this->email)->first();
         return [
           'name' => 'required|between:2,32|alpha',
           'lastname' => 'required|between:2,32|alpha',

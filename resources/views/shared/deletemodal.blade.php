@@ -1,7 +1,7 @@
 <div class="zoom-anim-dialog modal-block modal-block-primary mfp-hide" id="deleteModal">
   <section class="panel">
     <header class="panel-heading">
-      <h2 class="panel-title">¿Est&aacute; seguro?</h2>
+      <h2 class="panel-title">Eliminacion de registro!</h2>
     </header>
     <div class="panel-body">
       <div class="modal-wrapper">

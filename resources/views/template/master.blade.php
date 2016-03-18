@@ -44,10 +44,14 @@
                 <!-- box body -->
                 <div class="box-body" style="display: block;">
                   @yield('content')
+
                 </div>
+                  <!--@include('shared.deletemodal')-->
               </section>
 
-                <!--@include('shared.deletemodal')-->
+
+
+
 
 
 
@@ -67,6 +71,101 @@
 <script src="{{{ asset ("/bower_components/AdminLTE/plugins/datatables/dataTables.bootstrap.min.js") }}}" type="text/javascript"></script>
 <script src="{{{ asset ("/bower_components/AdminLTE/plugins/slimScroll/jquery.slimscroll.min.js") }}}" type="text/javascript"></script>
 <script src="{{{ asset ("/bower_components/AdminLTE/plugins/fastclick/fastclick.js") }}}" type= "text/javascript"></script>
+<script type="text/javascript">
+var datatable_spanish = {
+	"sProcessing":     "Procesando...",
+	"sLengthMenu":     "Mostrar _MENU_ registros",
+	"sZeroRecords":    "No se encontraron resultados",
+	"sEmptyTable":     "Ningún dato disponible en esta tabla",
+	"sInfo":           "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+	"sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+	"sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+	"sInfoPostFix":    "",
+	"sSearch":         "Buscar:",
+	"sUrl":            "",
+	"sInfoThousands":  ",",
+	"sLoadingRecords": "Cargando...",
+	"oPaginate": {
+			"sFirst":    "Primero",
+			"sLast":     "Último",
+			"sNext":     "Siguiente",
+			"sPrevious": "Anterior"
+	},
+	"oAria": {
+			"sSortAscending":  ": Activar para ordenar la columna de manera ascendente",
+			"sSortDescending": ": Activar para ordenar la columna de manera descendente"
+	}
+};
+var datatable_sdom = "<'row datatables-header form-inline'<'col-sm-12 col-md-6'l><'col-sm-12 col-md-6'f>r><t><'row datatables-footer'<'col-sm-12 col-md-6'i><'col-sm-12 col-md-6'p>>";
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+	setupDeleteLink();
+  setupAjax();
+});
+
+function setupAjax(){
+	$.ajaxSetup({
+		headers: {
+			'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		}
+	});
+}
+
+function setupDeleteLink(){
+	var link;
+	$("content").on("click", ".delete-link", function(e){
+		link = $(this);
+    console.log(link);
+		e.preventDefault();
+		$.magnificPopup.open({
+			items: {
+				src: '#deleteModal',
+				type: 'inline',
+				fixedContentPos: false,
+				fixedBgPos: true,
+				overflowY: 'auto',
+				closeBtnInside: true,
+				preloader: false,
+				midClick: true,
+				removalDelay: 300,
+				mainClass: 'my-mfp-zoom-in',
+				modal: true
+			}
+		});
+	});
+
+	$("content").on('click', '.modal-dismiss', function (e) {
+		e.preventDefault();
+		$.magnificPopup.close();
+	});
+
+	$("content").on('click', '.modal-delete-confirm', function (e) {
+		e.preventDefault();
+		$.magnificPopup.close();
+		if(link != 'undefined' && link != null){
+			$.ajax({
+				type: "DELETE",
+				url: link.data("href"),
+				success: function(msg){
+					new PNotify({
+						title: '¡Excelente!',
+						text: 'Registro eliminado correctamente.',
+						type: 'success'
+					});
+					link.closest("tr").remove();
+				}
+			}).fail(function( jqXHR, textStatus ) {
+				new PNotify({
+					title: '¡Error!',
+					text: 'Error al eliminar registro',
+					type: 'error'
+				});
+			});
+		}
+	});
+}
+</script>
 @yield('scripts')
 
 </body>

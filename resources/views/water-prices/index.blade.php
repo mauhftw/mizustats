@@ -37,7 +37,7 @@
     $('#datatable').dataTable({
         processing: true,
         serverSide: true,
-        //language: datatable_spanish,
+        language: datatable_spanish,
         ajax: $('#datatable').data('url'),
         columns: [
         {data: 'id', name: 'id', className: "center"},

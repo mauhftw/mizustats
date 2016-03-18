@@ -51,7 +51,7 @@ class ProfileController extends Controller {
     $user->email = $request->input('email');
     $user->save();
 
-    return redirect()->route('home.index')->with('success', trans('El usuario se ha modificado correctamente'));
+    return redirect()->route('home.index')->with('success','El usuario se ha modificado correctamente');
 
   }
 

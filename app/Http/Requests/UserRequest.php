@@ -51,7 +51,7 @@ class UserRequest extends Request
               'state_id' => 'required|exists:states,id',
               'city_id' =>'required|exists:cities,id',
               'role_id' =>'required|numeric|exists:roles,id',
-              'active' => 'boolean'   //MALO
+              'active' => 'boolean'   
             ];
         } else {
           return [];

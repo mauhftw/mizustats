@@ -40,7 +40,7 @@
         paging: false,
         ordering: false,
         info: false,
-        //language: datatable_spanish,
+        language: datatable_spanish,
         ajax: $('#datatable').data('url'),
         columns: [
         {data: 'consumption', name: 'consumption'},

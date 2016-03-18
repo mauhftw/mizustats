@@ -131,7 +131,7 @@ class UsersController extends Controller {
           $user->city_id = $request->input('city_id');
           $user->save();
 
-          return redirect()->route('users.index')->with('success', trans('El usuario se ha creado correctamente!'));
+          return redirect()->route('users.index')->with('success','El usuario se ha creado correctamente!');
     }
 
 
@@ -189,7 +189,7 @@ class UsersController extends Controller {
       $user->city_id = $request->input('city_id');
       $user->save();
 
-      return redirect()->route('users.index')->with('success', trans('El usuario se ha modificado correctamente'));
+      return redirect()->route('users.index')->with('success','El usuario se ha modificado correctamente');
 
 
     }
@@ -197,7 +197,7 @@ class UsersController extends Controller {
 
       $user = User::find($id);
       if (!$user) {
-          return redirect()->back()->withErrors([trans('El usuario seleccionado no existe')]);
+          return redirect()->back()->withErrors('El usuario seleccionado no existe');
       }
 
       $acl = Acl::where('dni','=',$user->dni)->delete();
@@ -209,7 +209,7 @@ class UsersController extends Controller {
           return response()->json(['code' => 200]);
       }
       else {
-          return redirect()->route('users.index')->with('success',trans('El usuario se ha eliminado correctamente'));
+          return redirect()->route('users.index')->with('success','El usuario se ha eliminado correctamente');
       }
 
     }
