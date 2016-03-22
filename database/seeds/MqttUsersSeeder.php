@@ -18,5 +18,15 @@ class MqttUsersSeeder extends Seeder
         'password' => $password,
         'super' => '0',
         ]);
+
+        //mqtt subscriber
+        $password = shell_exec("/usr/bin/np -p 123456");
+        $user = UserMqtt::create([
+          'dni' => '34785666',
+          'password' => $password,
+          'super' => '1',
+          ]);
+
+
     }
 }

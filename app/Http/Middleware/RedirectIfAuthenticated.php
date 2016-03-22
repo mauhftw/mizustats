@@ -18,10 +18,10 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
-          if($request->user()->isUser('user')) {
-                return redirect('home');
+          if($request->user()->isUser('user')) {    //agregue el .index
+                return redirect('home.index');
             } else {
-                return redirect('dashboard');
+                return redirect('dashboard.index');
             }
         }
 
