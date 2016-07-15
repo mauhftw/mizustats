@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>mizustats</title>
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <meta name="csrf-token" content="{!! csrf_token() !!}" />
 
     <link href="{{{ asset("/bower_components/AdminLTE/bootstrap/css/bootstrap.min.css") }}}" rel="stylesheet" type="text/css" />
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -46,14 +47,8 @@
                   @yield('content')
 
                 </div>
-                  <!--@include('shared.deletemodal')-->
+                  @include('shared.deletemodal')
               </section>
-
-
-
-
-
-
 
 
     </div><!-- /.content-wrapper -->
@@ -114,53 +109,32 @@ function setupAjax(){
 
 function setupDeleteLink(){
 	var link;
-	$("content").on("click", ".delete-link", function(e){
+	$('body').on("click", ".delete-link", function(e){
+    e.preventDefault();
 		link = $(this);
-    console.log(link);
-		e.preventDefault();
-		$.magnificPopup.open({
-			items: {
-				src: '#deleteModal',
-				type: 'inline',
-				fixedContentPos: false,
-				fixedBgPos: true,
-				overflowY: 'auto',
-				closeBtnInside: true,
-				preloader: false,
-				midClick: true,
-				removalDelay: 300,
-				mainClass: 'my-mfp-zoom-in',
-				modal: true
-			}
-		});
+    $('#deleteModal .modal-delete-confirm').attr('data-url',link.data('href'));
+    $('#deleteModal').modal();
+
 	});
 
-	$("content").on('click', '.modal-dismiss', function (e) {
+	$('body').on('click', '.modal-dismiss', function (e) {
 		e.preventDefault();
-		$.magnificPopup.close();
+    $('#deleteModal').modal('hide');
 	});
 
-	$("content").on('click', '.modal-delete-confirm', function (e) {
+	$('body').on('click', '.modal-delete-confirm', function (e) {
 		e.preventDefault();
-		$.magnificPopup.close();
 		if(link != 'undefined' && link != null){
 			$.ajax({
 				type: "DELETE",
 				url: link.data("href"),
 				success: function(msg){
-					new PNotify({
-						title: '¡Excelente!',
-						text: 'Registro eliminado correctamente.',
-						type: 'success'
-					});
+          $('#deleteModal').modal('hide');
+
 					link.closest("tr").remove();
 				}
 			}).fail(function( jqXHR, textStatus ) {
-				new PNotify({
-					title: '¡Error!',
-					text: 'Error al eliminar registro',
-					type: 'error'
-				});
+
 			});
 		}
 	});

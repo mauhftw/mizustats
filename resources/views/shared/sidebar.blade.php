@@ -23,7 +23,7 @@
       <li class="active"><a href="{{{url('/dashboard')}}}"><i class="fa fa-pie-chart"></i> <span>Dashboard</span></a></li>
       <li><a href="{{{url('/users')}}}"><i class="fa fa-users"></i> <span>Usuarios</span></a></li>
       <li><a href="{{{url('/water-prices')}}}"><i class="fa fa-usd"></i> <span>Precios</span></a></li>
-      <li><a href="{{{url('/export')}}}"><i class="fa fa-cloud-download"></i> <span>Exportar datos</span></a></li>
+      <!--<li><a href="{{{url('/export')}}}"><i class="fa fa-cloud-download"></i> <span>Exportar datos</span></a></li>-->
 
     </ul>
     <!-- /.sidebar-menu -->

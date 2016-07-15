@@ -87,7 +87,7 @@ class WaterPricesController extends Controller {
 
   }
 
-  public static function delete($id) {
+  public static function delete(Request $request, $id) {
 
     $price = WaterPrice::find($id);
     if (!$price) {

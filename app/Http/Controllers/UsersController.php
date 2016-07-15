@@ -10,7 +10,7 @@ use App\Models\City;
 use App\Models\State;
 use App\Models\Role;
 use App\Models\Acl;
-use app\Models\UserMqtt;
+use App\Models\UserMqtt;
 use App\Http\Requests\UserRequest;
 use App\Helpers\MqttUserHelper;
 use App\Models\User;
@@ -193,7 +193,7 @@ class UsersController extends Controller {
 
 
     }
-    public static function delete($id) {
+    public static function delete(Request $request,$id) {
 
       $user = User::find($id);
       if (!$user) {
